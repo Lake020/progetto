@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     cafeaddvisitor.cpp \
+    cafeeditvisitor.cpp \
     cafeinfovisitor.cpp \
     cafeitem.cpp \
     cafeitemaddwidget.cpp \
@@ -33,6 +34,7 @@ SOURCES += \
 
 HEADERS += \
     cafeaddvisitor.h \
+    cafeeditvisitor.h \
     cafeinfovisitor.h \
     cafeitemaddwidget.h \
     cafeitemeditwidget.h \

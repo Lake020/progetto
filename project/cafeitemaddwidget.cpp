@@ -51,7 +51,7 @@ void CafeItemAddWidget::FoodExtraInfo(){
     extra = new QComboBox;
     extra->addItem("Yes");
     extra->addItem("No");
-    formLayout->removeRow(4);
+    if(formLayout->rowCount() > 4) formLayout->removeRow(4);
     formLayout->addRow(tr("Gluten Free: "), extra);
 }
 
@@ -60,7 +60,7 @@ void CafeItemAddWidget::DrinkExtraInfo(){
     extra->addItem("Small");
     extra->addItem("Medium");
     extra->addItem("Big");
-    formLayout->removeRow(4);
+    if(formLayout->rowCount() > 4) formLayout->removeRow(4);
     formLayout->addRow(tr("Format : "), extra);
 }
 

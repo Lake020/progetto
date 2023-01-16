@@ -27,6 +27,7 @@ public slots:
     void search();
     void sort(int index);
     void add_menu();
+    void modify_menu();
     void add_cafe_item(CafeItem* item);
     void cancel();
     void set_search_name(int);

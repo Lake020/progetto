@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "cafeinfovisitor.h"
+#include "cafeeditvisitor.h"
 
 MainWindow::MainWindow(const Menu& menu, QWidget *parent):QWidget(parent), menu_(menu), search_mode_(0), addWidget(new CafeItemAddWidget){
     QVBoxLayout* mainLayout = new QVBoxLayout;
@@ -122,6 +123,7 @@ MainWindow::MainWindow(const Menu& menu, QWidget *parent):QWidget(parent), menu_
     setLayout(mainLayout);
 
     connect(addItem, &QPushButton::clicked, this, &MainWindow::add_menu);
+    connect(modifyItem, &QPushButton::clicked, this, &MainWindow::modify_menu);
     connect(table1->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::sort);
     connect(table2->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::sort);
     connect(table3->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::sort);
@@ -142,6 +144,24 @@ void MainWindow::add_cafe_item(CafeItem* item){
     fill_table1(table1, menu_);
     fill_table2(table2, menu_);
     fill_table3(table3, menu_);
+}
+
+void MainWindow::modify_menu(){
+
+    CafeEditVisitor visitor;
+
+    if(tableTab->currentIndex() == 0){
+        size_t index = table1->currentRow();
+        menu_[index].accept(visitor);
+        QWidget* editWidget = visitor.get_widget();
+        //editWidget->show();
+
+    }else if(tableTab->currentIndex() == 1){
+        size_t index = table2->currentRow();
+
+    }else if(tableTab->currentIndex() == 2){
+        size_t index = table3->currentRow();
+    }
 }
 
 void MainWindow::sort(int index){

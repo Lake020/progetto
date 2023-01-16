@@ -22,7 +22,7 @@ int main(int argc, char *argv[]){
     Food* donut = new Food("donut", "donut.png", 7.0);
     Food* ap = new Food("ap", "ap.png", 1.2);
     Drink* coca = new Drink("coca", "coca.png", 2.6);
-    
+
     d.add(coca);
     d.add(banana);
     d.add(ap);
