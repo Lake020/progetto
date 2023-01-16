@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "menu.h"
+#include "cafeitemaddwidget.h"
 #include<QWidget>
 #include<QMenuBar>
 #include<QPushButton>
@@ -23,15 +24,28 @@ class MainWindow : public QWidget{
 public:
     MainWindow(const Menu& menu, QWidget *parent = nullptr);
 public slots:
-    void search_by_name();
+    void search();
+    void sort(int index);
+    void add_menu();
+    void add_cafe_item(CafeItem* item);
+    void cancel();
+    void set_search_name(int);
+    void set_search_price(int);
+    void set_search_format(int);
 private:
     Menu menu_;
+    int search_mode_;
+    CafeItemAddWidget* addWidget;
 
     QLineEdit* searchBox;
 
     QTabWidget* tableTab;
     QTableWidget* table1;
+    void fill_table1(QTableWidget* table, const Menu& menu);
+    void fill_table2(QTableWidget* table, const Menu& menu);
+    void fill_table3(QTableWidget* table, const Menu& menu);
     QTableWidget* table2;
     QTableWidget* table3;
+
 };
 #endif // MAINWINDOW_H

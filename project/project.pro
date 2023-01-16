@@ -12,6 +12,8 @@ SOURCES += \
     cafeaddvisitor.cpp \
     cafeinfovisitor.cpp \
     cafeitem.cpp \
+    cafeitemaddwidget.cpp \
+    cafeitemeditwidget.cpp \
     compare.cpp \
     drink.cpp \
     dvd.cpp \
@@ -32,6 +34,8 @@ SOURCES += \
 HEADERS += \
     cafeaddvisitor.h \
     cafeinfovisitor.h \
+    cafeitemaddwidget.h \
+    cafeitemeditwidget.h \
     cafevisitor.h \
     cafeitem.h \
     compare.h \
