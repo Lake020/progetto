@@ -1,8 +1,10 @@
 #include "mainwindow.h"
 #include "cafeinfovisitor.h"
-#include "cafeeditvisitor.h"
+#include "entinfovisitor.h"
 
-MainWindow::MainWindow(const Menu& menu, QWidget *parent):QWidget(parent), menu_(menu), search_mode_(0), addWidget(new CafeItemAddWidget){
+MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent):QWidget(parent), menu_(menu), library_(library), search_mode_(0), addWidget(new CafeItemAddWidget){
+    setWindowTitle("QtCafe");
+
     QVBoxLayout* mainLayout = new QVBoxLayout;
 
     QMenuBar* menuBar = new QMenuBar;
@@ -18,16 +20,16 @@ MainWindow::MainWindow(const Menu& menu, QWidget *parent):QWidget(parent), menu_
 
     QTabWidget* mainTab = new QTabWidget;
 
-    QWidget* scheda1 = new QWidget;
-    QVBoxLayout* scheda1Layout = new QVBoxLayout;
-    scheda1->setLayout(scheda1Layout);
+    QWidget* menuWidget = new QWidget;
+    QVBoxLayout* menuWidgetLayout = new QVBoxLayout;
+    menuWidget->setLayout(menuWidgetLayout);
 
     QHBoxLayout* menuLayout = new QHBoxLayout;
     QGroupBox* buttonGroupBox = new QGroupBox("Edit");
     QHBoxLayout* controlsLayout = new QHBoxLayout;
-    QPushButton* addItem = new QPushButton("Aggiungi");
-    QPushButton* modifyItem = new QPushButton("Modifica");
-    QPushButton* deleteItem = new QPushButton("Cancella");
+    QPushButton* addItem = new QPushButton("Add");
+    QPushButton* modifyItem = new QPushButton("Edit");
+    QPushButton* deleteItem = new QPushButton("Delete");
     controlsLayout->addWidget(addItem);
     controlsLayout->addWidget(modifyItem);
     controlsLayout->addWidget(deleteItem);
@@ -53,80 +55,127 @@ MainWindow::MainWindow(const Menu& menu, QWidget *parent):QWidget(parent), menu_
     searchLayout->addLayout(searchOptionLayout);
     searchGroupBox->setLayout(searchLayout);
     menuLayout->addWidget(searchGroupBox);
-    scheda1Layout->addLayout(menuLayout);
+    menuWidgetLayout->addLayout(menuLayout);
 
-    tableTab = new QTabWidget;
-    table1 = new QTableWidget;
-    QStringList headerTable1;
-    headerTable1 << "Nome" << "Prezzo";
-    table1->setColumnCount(2);
-    table1->setHorizontalHeaderLabels(headerTable1);
-    table1->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    table1->verticalHeader()->hide();
-    table1->setSelectionBehavior(QAbstractItemView::SelectRows);
-    table1->setSelectionMode(QAbstractItemView::SingleSelection);
-    table1->setAlternatingRowColors(true);
-    table1->setSortingEnabled(false);
-    table1->resizeRowsToContents();
-    table1->horizontalHeader()->setSectionsClickable(true);
-    table1->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    table1->setFocusPolicy(Qt::NoFocus);
+    menuTab = new QTabWidget;
+    menuTable = new QTableWidget;
+    QStringList headerMenuTable;
+    headerMenuTable << "Name" << "Price";
+    menuTable->setColumnCount(2);
+    menuTable->setHorizontalHeaderLabels(headerMenuTable);
+    menuTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    menuTable->verticalHeader()->hide();
+    menuTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    menuTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    menuTable->setAlternatingRowColors(true);
+    menuTable->setSortingEnabled(false);
+    menuTable->resizeRowsToContents();
+    menuTable->horizontalHeader()->setSectionsClickable(true);
+    menuTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    menuTable->setFocusPolicy(Qt::NoFocus);
 
-    fill_table1(table1, menu_);
+    fill_menuTable(menuTable, menu_);
 
-    tableTab->addTab(table1, "Tutto");
+    menuTab->addTab(menuTable, "All");
 
-    table2 = new QTableWidget;
-    QStringList headerTable2;
-    headerTable2 << "Nome" << "Prezzo" << "Senza glutine";
-    table2->setColumnCount(3);
-    table2->setHorizontalHeaderLabels(headerTable2);
-    table2->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    table2->verticalHeader()->hide();
-    table2->setSelectionBehavior(QAbstractItemView::SelectRows);
-    table2->setSelectionMode(QAbstractItemView::SingleSelection);
-    table2->setAlternatingRowColors(true);
-    table2->setSortingEnabled(false);
-    table2->resizeRowsToContents();
-    table2->horizontalHeader()->setSectionsClickable(true);
-    table2->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    table2->setFocusPolicy(Qt::NoFocus);
+    foodTable = new QTableWidget;
+    QStringList headerFoodTable;
+    headerFoodTable << "Name" << "Price" << "Gluten free";
+    foodTable->setColumnCount(3);
+    foodTable->setHorizontalHeaderLabels(headerFoodTable);
+    foodTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    foodTable->verticalHeader()->hide();
+    foodTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    foodTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    foodTable->setAlternatingRowColors(true);
+    foodTable->setSortingEnabled(false);
+    foodTable->resizeRowsToContents();
+    foodTable->horizontalHeader()->setSectionsClickable(true);
+    foodTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    foodTable->setFocusPolicy(Qt::NoFocus);
 
-    fill_table2(table2, menu_);
-    tableTab->addTab(table2, "Cibo");
+    fill_foodTable(foodTable, menu_);
+    menuTab->addTab(foodTable, "Food");
 
-    table3 = new QTableWidget;
-    QStringList headerTable3;
-    headerTable3 << "Nome" << "Prezzo" << "Formato";
-    table3->setColumnCount(3);
-    table3->setHorizontalHeaderLabels(headerTable3);
-    table3->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    table3->verticalHeader()->hide();
-    table3->setSelectionBehavior(QAbstractItemView::SelectRows);
-    table3->setSelectionMode(QAbstractItemView::SingleSelection);
-    table3->setAlternatingRowColors(true);
-    table3->setSortingEnabled(false);
-    table3->resizeRowsToContents();
-    table3->horizontalHeader()->setSectionsClickable(true);
-    table3->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    table3->setFocusPolicy(Qt::NoFocus);
+    drinkTable = new QTableWidget;
+    QStringList headerDrinkTable;
+    headerDrinkTable << "Name" << "Price" << "Format";
+    drinkTable->setColumnCount(3);
+    drinkTable->setHorizontalHeaderLabels(headerDrinkTable);
+    drinkTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    drinkTable->verticalHeader()->hide();
+    drinkTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    drinkTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    drinkTable->setAlternatingRowColors(true);
+    drinkTable->setSortingEnabled(false);
+    drinkTable->resizeRowsToContents();
+    drinkTable->horizontalHeader()->setSectionsClickable(true);
+    drinkTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    drinkTable->setFocusPolicy(Qt::NoFocus);
 
-    fill_table3(table3, menu_);
+    fill_drinkTable(drinkTable, menu_);
 
-    tableTab->addTab(table3, "Bevande");
+    menuTab->addTab(drinkTable, "Drink");
 
 
-    mainTab->addTab(scheda1, "Menu");
-    scheda1Layout->addWidget(tableTab);
+    mainTab->addTab(menuWidget, "Menu");
+    menuWidgetLayout->addWidget(menuTab);
+
+    QWidget* libraryWidget = new QWidget;
+    QVBoxLayout* libraryWidgetLayout = new QVBoxLayout;
+    libraryWidget->setLayout(libraryWidgetLayout);
+    libraryWidgetLayout->addLayout(menuLayout);
+
+    libraryTab = new QTabWidget;
+    libraryTable = new QTableWidget;
+    QStringList headerLibraryTable;
+    headerLibraryTable << "Name" << "Description" << "Quantity";
+    libraryTable->setColumnCount(3);
+    libraryTable->setHorizontalHeaderLabels(headerLibraryTable);
+    libraryTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    libraryTable->verticalHeader()->hide();
+    libraryTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    libraryTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    libraryTable->setAlternatingRowColors(true);
+    libraryTable->setSortingEnabled(false);
+    libraryTable->resizeRowsToContents();
+    libraryTable->horizontalHeader()->setSectionsClickable(true);
+    libraryTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    libraryTable->setFocusPolicy(Qt::NoFocus);
+
+    fill_libraryTable(library_);
+    libraryTab->addTab(libraryTable, "All");
+    /*
+    mangaTable = new QTableWidget;
+    QStringList headerMangaTable;
+    headerMangaTable << "Name" << "Quantity" << "Author" << "Volume" << "Pages" << "Target";
+    mangaTable->setColumnCount(6);
+    mangaTable->setHorizontalHeaderLabels(headerMangaTable);
+    mangaTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    mangaTable->verticalHeader()->hide();
+    mangaTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    mangaTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    mangaTable->setAlternatingRowColors(true);
+    mangaTable->setSortingEnabled(false);
+    mangaTable->resizeRowsToContents();
+    mangaTable->horizontalHeader()->setSectionsClickable(true);
+    mangaTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    mangaTable->setFocusPolicy(Qt::NoFocus);
+
+    fill_mangaTable(library_);
+    libraryTab->addTab(mangaTable, "Manga");
+    */
+    mainTab->addTab(libraryWidget, "Library");
+    libraryWidgetLayout->addWidget(libraryTab);
 
     mainLayout->addWidget(mainTab);
     setLayout(mainLayout);
 
     connect(addItem, &QPushButton::clicked, this, &MainWindow::add_menu);
     connect(modifyItem, &QPushButton::clicked, this, &MainWindow::modify_menu);
-    connect(table1->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::sort);
-    connect(table2->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::sort);
-    connect(table3->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::sort);
+    connect(menuTable->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::sort);
+    connect(foodTable->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::sort);
+    connect(drinkTable->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::sort);
     connect(searchName, &QCheckBox::stateChanged, this, &MainWindow::set_search_name);
     connect(searchPrice, &QCheckBox::stateChanged, this, &MainWindow::set_search_price);
     connect(searchFormat, &QCheckBox::stateChanged, this, &MainWindow::set_search_format);
@@ -134,22 +183,22 @@ MainWindow::MainWindow(const Menu& menu, QWidget *parent):QWidget(parent), menu_
     connect(searchBox, &QLineEdit::textChanged, this , &MainWindow::search);
     connect(addWidget, &CafeItemAddWidget::add_to_menu, this, &MainWindow::add_cafe_item);
     connect(editWidget, &CafeItemEditWidget::edited, this, &MainWindow::menu_edited);
-    connect(table1, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_info);
-    connect(table2, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_info);
-    connect(table3, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_info);
+    connect(menuTable, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_info);
+    connect(foodTable, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_info);
+    connect(drinkTable, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_info);
 }
 
 void MainWindow::show_info(){
-    if(tableTab->currentIndex() == 0){
-        size_t index = table1->currentRow();
+    if(menuTab->currentIndex() == 0){
+        size_t index = menuTable->currentRow();
         infoWidget = new CafeItemInfoWidget(&menu_[index]);
         infoWidget->show();
-    }else if(tableTab->currentIndex() == 1){
-        size_t index = table2->currentRow();
+    }else if(menuTab->currentIndex() == 1){
+        size_t index = foodTable->currentRow();
         infoWidget = new CafeItemInfoWidget(&(menu_.only_food()[index]));
         infoWidget->show();
-    }else if(tableTab->currentIndex() == 2){
-        size_t index = table3->currentRow();
+    }else if(menuTab->currentIndex() == 2){
+        size_t index = drinkTable->currentRow();
         infoWidget = new CafeItemInfoWidget(&(menu_.only_drink()[index]));
         infoWidget->show();
     }
@@ -161,64 +210,64 @@ void MainWindow::add_menu(){
 
 void MainWindow::add_cafe_item(CafeItem* item){
     menu_.add(item);
-    update_tables();
+    update_menu_tables();
 }
 
 void MainWindow::modify_menu(){
 
-    if(tableTab->currentIndex() == 0){
-        size_t index = table1->currentRow();
+    if(menuTab->currentIndex() == 0){
+        size_t index = menuTable->currentRow();
         editWidget = new CafeItemEditWidget(&menu_[index]);
         editWidget->show();
-    }else if(tableTab->currentIndex() == 1){
-        size_t index = table2->currentRow();
+    }else if(menuTab->currentIndex() == 1){
+        size_t index = foodTable->currentRow();
         editWidget = new CafeItemEditWidget(&(menu_.only_food()[index]));
         editWidget->show();
-    }else if(tableTab->currentIndex() == 2){
-        size_t index = table3->currentRow();
+    }else if(menuTab->currentIndex() == 2){
+        size_t index = drinkTable->currentRow();
         editWidget = new CafeItemEditWidget(&(menu_.only_drink()[index]));
         editWidget->show();
     }
 }
 
 void MainWindow::menu_edited(){
-    update_tables();
+    update_menu_tables();
 }
 
 void MainWindow::sort(int index){
     //if(index == 0) menu_.sort();
     //else if(index == 1) menu_.sort_by_price();
-    //else if(tableTab->currentIndex() == 1) menu_.sort_by_gluten_free();
-    //else if(tableTab->currentIndex() == 2) menu_.sort_by_format();
-    update_tables();
+    //else if(menuTab->currentIndex() == 1) menu_.sort_by_gluten_free();
+    //else if(menuTab->currentIndex() == 2) menu_.sort_by_format();
+    update_menu_tables();
 }
 
 void MainWindow::search(){
 
     if(search_mode_ == 0){
         QString name = searchBox->displayText();
-        if(tableTab->currentIndex() == 0){
+        if(menuTab->currentIndex() == 0){
             Menu searched = menu_.search_by_name(name.toStdString());
-            fill_table1(table1, searched);
-        }else if(tableTab->currentIndex() == 1){
+            fill_menuTable(menuTable, searched);
+        }else if(menuTab->currentIndex() == 1){
             Menu searched = menu_.only_food().search_by_name(name.toStdString());
-            fill_table2(table2, searched);
+            fill_foodTable(foodTable, searched);
         }else{
             Menu searched = menu_.only_drink().search_by_name(name.toStdString());
-            fill_table3(table3, searched);
+            fill_drinkTable(drinkTable, searched);
         }
     }else if(search_mode_ == 1){
         QString price = searchBox->displayText();
         if(price == "") price = "99999";
-        if(tableTab->currentIndex() == 0){
+        if(menuTab->currentIndex() == 0){
             Menu searched = menu_.search_by_price(price.toDouble());
-            fill_table1(table1, searched);
-        }else if(tableTab->currentIndex() == 1){
+            fill_menuTable(menuTable, searched);
+        }else if(menuTab->currentIndex() == 1){
             Menu searched = menu_.only_food().search_by_price(price.toDouble());
-            fill_table2(table2, searched);
+            fill_foodTable(foodTable, searched);
         }else{
             Menu searched = menu_.only_drink().search_by_price(price.toDouble());
-            fill_table3(table3, searched);
+            fill_drinkTable(drinkTable, searched);
         }
     }else if(search_mode_ == 2){
         /*
@@ -227,9 +276,9 @@ void MainWindow::search(){
         if(format_string == "small") format = small;
         else if(format_string == "medium") format = medium;
         else if(format_string == "big") format = big;
-        if(tableTab->currentIndex() == 2){
+        if(menuTab->currentIndex() == 2){
             //Menu searched = menu_.only_drink().search_by_format(format);
-            //fill_table3(table3, searched);
+            //fill_drinkTable(drinkTable, searched);
         }
         */
     }
@@ -250,26 +299,26 @@ void MainWindow::set_search_format(int a){
 }
 
 void MainWindow::cancel(){
-    if(tableTab->currentIndex() == 0){
-        size_t index = table1->currentRow();
+    if(menuTab->currentIndex() == 0){
+        size_t index = menuTable->currentRow();
         menu_.remove(index);
-    }else if(tableTab->currentIndex() == 1){
-        size_t index = table2->currentRow();
+    }else if(menuTab->currentIndex() == 1){
+        size_t index = foodTable->currentRow();
         menu_.remove(&(menu_.only_food()[index]));
-    }else if(tableTab->currentIndex() == 2){
-        size_t index = table3->currentRow();
+    }else if(menuTab->currentIndex() == 2){
+        size_t index = drinkTable->currentRow();
         menu_.remove(&(menu_.only_drink()[index]));
     }
-    update_tables();
+    update_menu_tables();
 }
 
-void MainWindow::update_tables(){
-    fill_table1(table1, menu_);
-    fill_table2(table2, menu_);
-    fill_table3(table3, menu_);
+void MainWindow::update_menu_tables(){
+    fill_menuTable(menuTable, menu_);
+    fill_foodTable(foodTable, menu_);
+    fill_drinkTable(drinkTable, menu_);
 }
 
-void MainWindow::fill_table1(QTableWidget* table, const Menu& menu){
+void MainWindow::fill_menuTable(QTableWidget* table, const Menu& menu){
     table->clearContents();
     table->setRowCount(0);
     for(size_t i = 0; i < menu.get_size(); i++){
@@ -285,7 +334,7 @@ void MainWindow::fill_table1(QTableWidget* table, const Menu& menu){
     }
 }
 
-void MainWindow::fill_table2(QTableWidget* table, const Menu& menu){
+void MainWindow::fill_foodTable(QTableWidget* table, const Menu& menu){
     table->clearContents();
     table->setRowCount(0);
     Menu cibo = menu.only_food();
@@ -307,7 +356,8 @@ void MainWindow::fill_table2(QTableWidget* table, const Menu& menu){
         table->setItem(i, 2, itemGluten);
     }
 }
-void MainWindow::fill_table3(QTableWidget* table, const Menu& menu){
+
+void MainWindow::fill_drinkTable(QTableWidget* table, const Menu& menu){
     table->clearContents();
     table->setRowCount(0);
     Menu bevande = menu.only_drink();
@@ -324,11 +374,90 @@ void MainWindow::fill_table3(QTableWidget* table, const Menu& menu){
         itemPrice->setTextAlignment(Qt::AlignCenter);
         table->setItem(i, 1, itemPrice);
         QString format = "";
-        if(visitor.get_format() == 0) format = "Small";
-        else if(visitor.get_format() == 1) format = "Medium";
-        else if(visitor.get_format() == 2) format = "Big";
+        switch(visitor.get_format()){
+        case small: format = "Small"; break;
+        case medium: format = "Medium"; break;
+        case big: format = "Big"; break;
+        }
         QTableWidgetItem* itemFormat = new QTableWidgetItem(format);
         itemFormat->setTextAlignment(Qt::AlignCenter);
         table->setItem(i, 2, itemFormat);
     }
 }
+/*
+void MainWindow::update_library_tables(){
+    fill_libraryTable(library_);
+    fill_mangaTable(library_);
+    fill_dvdTable(library_);
+    fill_videogameTable(library_);
+}
+*/
+void MainWindow::fill_libraryTable(const Library& library){
+    libraryTable->clearContents();
+    libraryTable->setRowCount(0);
+    for(size_t i = 0; i < library.get_size(); i++){
+        libraryTable->insertRow(libraryTable->rowCount());
+        QString name = QString::fromStdString(library[i].get_name());
+        QTableWidgetItem* itemName = new QTableWidgetItem(name);
+        itemName->setTextAlignment(Qt::AlignCenter);
+        libraryTable->setItem(i, 0, itemName);
+        QString description = QString::fromStdString(library[i].get_description());
+        QTableWidgetItem* itemDescription = new QTableWidgetItem(description);
+        itemDescription->setTextAlignment(Qt::AlignCenter);
+        libraryTable->setItem(i, 1, itemDescription);
+        QString quantity = QString::number(library[i].get_quantity());
+        QTableWidgetItem* itemQuantity = new QTableWidgetItem(quantity);
+        itemQuantity->setTextAlignment(Qt::AlignCenter);
+        libraryTable->setItem(i, 2, itemQuantity);
+    }
+}
+/*
+void MainWindow::fill_mangaTable(const Library& library){
+    mangaTable->clearContents();
+    mangaTable->setRowCount(0);
+    Library manga = library.only_manga();
+    for(size_t i = 0; i < library.get_size(); i++){
+        EntInfoVisitor visitor;
+        manga[i].accept(visitor);
+        mangaTable->insertRow(mangaTable->rowCount());
+        QString name = QString::fromStdString(manga[i].get_name());
+        QTableWidgetItem* itemName = new QTableWidgetItem(name);
+        itemName->setTextAlignment(Qt::AlignCenter);
+        mangaTable->setItem(i, 0, itemName);
+        QString quantity = QString::number(manga[i].get_quantity());
+        QTableWidgetItem* itemQuantity = new QTableWidgetItem(quantity);
+        itemQuantity->setTextAlignment(Qt::AlignCenter);
+        mangaTable->setItem(i, 1, itemQuantity);
+        QString author = QString::fromStdString(visitor.get_author());
+        QTableWidgetItem* itemAuthor = new QTableWidgetItem(author);
+        itemName->setTextAlignment(Qt::AlignCenter);
+        mangaTable->setItem(i, 2, itemAuthor);
+        QString volume = QString::number(visitor.get_volume());
+        QTableWidgetItem* itemVolume = new QTableWidgetItem(volume);
+        itemQuantity->setTextAlignment(Qt::AlignCenter);
+        mangaTable->setItem(i, 3, itemVolume);
+        QString pages = QString::number(visitor.get_pages());
+        QTableWidgetItem* itemPages = new QTableWidgetItem(pages);
+        itemQuantity->setTextAlignment(Qt::AlignCenter);
+        mangaTable->setItem(i, 4, itemPages);
+        QString target = "";
+        switch(visitor.get_target()){
+        case shounen: target = "Shounen"; break;
+        case seinen: target = "Seinen"; break;
+        case shojo: target = "Shojo"; break;
+        case josei: target = "Josei"; break;
+        case none: target = "None"; break;
+        }
+        QTableWidgetItem* itemTarget = new QTableWidgetItem(target);
+        mangaTable->setItem(i, 5, itemTarget);
+    }
+}
+
+void MainWindow::fill_dvdTable(const Library& library){
+
+}
+
+void MainWindow::fill_videogameTable(const Library& library){
+
+}
+*/

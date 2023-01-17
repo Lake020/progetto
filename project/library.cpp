@@ -7,6 +7,14 @@ Library::Library(){}
 
 Library::~Library(){}
 
+Entertainment& Library::operator[](size_t i){
+    return *(items_[i]);
+}
+
+const Entertainment& Library::operator[](size_t i) const{
+    return *(items_[i]);
+}
+
 size_t Library::get_size() const{
     return items_.get_size();
 }

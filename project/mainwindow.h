@@ -5,6 +5,7 @@
 #include "cafeitemaddwidget.h"
 #include "cafeitemeditwidget.h"
 #include "cafeiteminfowidget.h"
+#include "library.h"
 #include<QWidget>
 #include<QMenuBar>
 #include<QPushButton>
@@ -24,7 +25,7 @@ class MainWindow : public QWidget{
     Q_OBJECT
 
 public:
-    MainWindow(const Menu& menu, QWidget *parent = nullptr);
+    MainWindow(const Menu& menu, const Library& library, QWidget *parent = nullptr);
 public slots:
     void search();
     void sort(int index);
@@ -39,6 +40,8 @@ public slots:
     void set_search_format(int);
 private:
     Menu menu_;
+    Library library_;
+
     int search_mode_;
     CafeItemAddWidget* addWidget;
     CafeItemEditWidget* editWidget;
@@ -46,14 +49,26 @@ private:
 
     QLineEdit* searchBox;
 
-    QTabWidget* tableTab;
-    QTableWidget* table1;
-    void update_tables();
-    void fill_table1(QTableWidget* table, const Menu& menu);
-    void fill_table2(QTableWidget* table, const Menu& menu);
-    void fill_table3(QTableWidget* table, const Menu& menu);
-    QTableWidget* table2;
-    QTableWidget* table3;
+    QTabWidget* menuTab;
+    QTableWidget* menuTable;
+    QTableWidget* foodTable;
+    QTableWidget* drinkTable;
+    void update_menu_tables();
+    void fill_menuTable(QTableWidget* table, const Menu& menu);
+    void fill_foodTable(QTableWidget* table, const Menu& menu);
+    void fill_drinkTable(QTableWidget* table, const Menu& menu);
+    QTabWidget* libraryTab;
+    QTableWidget* libraryTable;
+    /*
+    QTableWidget* mangaTable;
+    QTableWidget* dvdTable;
+    QTableWidget* videogameTable;
+    void update_library_tables();
+    */
+    void fill_libraryTable(const Library& library);
+    //void fill_mangaTable(const Library& library);
+    //void fill_dvdTable(const Library& library);
+    //void fill_videogameTable(const Library& library);
 
 };
 #endif // MAINWINDOW_H

@@ -16,6 +16,9 @@ public:
     Library();
     ~Library();
 
+    Entertainment& operator[](size_t i);
+    const Entertainment& operator[](size_t i) const;
+
     void add(Entertainment* value);
     void remove(Entertainment* value);
     void remove(size_t index);

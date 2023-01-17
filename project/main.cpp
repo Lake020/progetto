@@ -3,13 +3,11 @@
 #include "food.h"
 #include "drink.h"
 
-/*
 #include "library.h"
 #include "manga.h"
 #include "dvd.h"
 #include "series.h"
 #include "videogame.h"
-*/
 
 #include <QApplication>
 //#include <iostream>
@@ -28,7 +26,7 @@ int main(int argc, char *argv[]){
     d.add(ap);
     d.add(donut);
     d.add(apple);
-    /*
+
     Library a;
     Manga* haikyu = new Manga("haikyu", "haikyu.png", "pallavolo" ,2, "bo", 134, 1, shounen);
     Manga* naruto = new Manga("naruto", "naruto.png", "samurai", 4, "qualcuno", 200, 1, shounen);
@@ -48,12 +46,9 @@ int main(int argc, char *argv[]){
     a.add(lol);
     a.add(genshin);
     a.add(osu);
-    std::cout << a;
-    Library tmp = a.only_manga();
-    std::cout << tmp.search_by_author("oda");
-    */
-    QApplication a(argc, argv);
-    MainWindow w(d);
+
+    QApplication app(argc, argv);
+    MainWindow w(d, a);
     w.show();
-    return a.exec();
+    return app.exec();
 }
