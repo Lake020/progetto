@@ -17,11 +17,11 @@
 int main(int argc, char *argv[]){
 
     Menu d;
-    Food* banana = new Food("banana", "banana.png", 13.0, true);
-    Food* apple = new Food("apple", "apple.png", 5.0);
-    Food* donut = new Food("donut", "donut.png", 7.0);
-    Food* ap = new Food("ap", "ap.png", 1.2);
-    Drink* coca = new Drink("coca", "coca.png", 2.6);
+    Food* banana = new Food("banana", "/home/leonardo/Downloads/lul.png", 13.0, true);
+    Food* apple = new Food("apple", "/home/leonardo/Downloads/lul.png", 5.0);
+    Food* donut = new Food("donut", "/home/leonardo/Downloads/lul.png", 7.0);
+    Food* ap = new Food("ap", "/home/leonardo/Downloads/lul.png", 1.2);
+    Drink* coca = new Drink("coca", "/home/leonardo/Downloads/lul.png", 2.6);
 
     d.add(coca);
     d.add(banana);

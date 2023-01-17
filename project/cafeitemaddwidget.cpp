@@ -3,7 +3,7 @@
 CafeItemAddWidget::CafeItemAddWidget(QWidget *parent): QWidget{parent}{
     setWindowTitle("Add");
     setFixedSize(QSize(400,240));
-    QVBoxLayout* layout = new QVBoxLayout;
+    layout = new QVBoxLayout;
     formLayout = new QFormLayout;
     type = new QComboBox;
     type->addItem("Food");
@@ -12,8 +12,8 @@ CafeItemAddWidget::CafeItemAddWidget(QWidget *parent): QWidget{parent}{
     name = new QLineEdit;
     name->setMaxLength(100);
     formLayout->addRow(tr("&Name: "), name);
-    QPushButton* browseImage = new QPushButton("Browse...");
-    QHBoxLayout* imageLayout = new QHBoxLayout;
+    browseImage = new QPushButton("Browse...");
+    imageLayout = new QHBoxLayout;
     image = new QLineEdit;
     image->setMaxLength(250);
     imageLayout->addWidget(image);
@@ -25,9 +25,9 @@ CafeItemAddWidget::CafeItemAddWidget(QWidget *parent): QWidget{parent}{
     price->setStepType(QAbstractSpinBox::AdaptiveDecimalStepType);
     formLayout->addRow(tr("Price: "), price);
     FoodExtraInfo();
-    QHBoxLayout* buttonLayout = new QHBoxLayout;
-    QPushButton* addButton = new QPushButton("Add");
-    QPushButton* cancelButton = new QPushButton("Cancel");
+    buttonLayout = new QHBoxLayout;
+    addButton = new QPushButton("Add");
+    cancelButton = new QPushButton("Cancel");
     buttonLayout->addWidget(addButton);
     buttonLayout->addWidget(cancelButton);
     layout->addLayout(formLayout);
@@ -43,7 +43,7 @@ CafeItemAddWidget::CafeItemAddWidget(QWidget *parent): QWidget{parent}{
         image->clear();
         price->setValue(0);
         extra->setCurrentIndex(0);
-        emit this->hide();
+        this->hide();
     });
 }
 
@@ -86,7 +86,7 @@ void CafeItemAddWidget::add_item(){
         image->clear();
         price->setValue(0);
         extra->setCurrentIndex(0);
-        emit this->hide();
+        this->hide();
         emit add_to_menu(food);
     }
     else{
@@ -95,6 +95,7 @@ void CafeItemAddWidget::add_item(){
         case 0: formatItem = small; break;
         case 1: formatItem = medium; break;
         case 2: formatItem = big; break;
+        default: formatItem = medium; break;
         }
         Drink* drink = new Drink(nameItem, imageItem, priceItem, formatItem);
         type->setCurrentIndex(0);
@@ -102,7 +103,7 @@ void CafeItemAddWidget::add_item(){
         image->clear();
         price->setValue(0);
         extra->setCurrentIndex(0);
-        emit this->hide();
+        this->hide();
         emit add_to_menu(drink);
     }
 }

@@ -10,11 +10,12 @@ CONFIG += c++17
 
 SOURCES += \
     cafeaddvisitor.cpp \
-    cafeeditvisitor.cpp \
     cafeinfovisitor.cpp \
     cafeitem.cpp \
     cafeitemaddwidget.cpp \
     cafeitemeditwidget.cpp \
+    cafeiteminfowidget.cpp \
+    cafewidgetvisitor.cpp \
     compare.cpp \
     drink.cpp \
     dvd.cpp \
@@ -34,12 +35,13 @@ SOURCES += \
 
 HEADERS += \
     cafeaddvisitor.h \
-    cafeeditvisitor.h \
     cafeinfovisitor.h \
     cafeitemaddwidget.h \
     cafeitemeditwidget.h \
+    cafeiteminfowidget.h \
     cafevisitor.h \
     cafeitem.h \
+    cafewidgetvisitor.h \
     compare.h \
     compare.hpp \
     drink.h \

@@ -3,6 +3,8 @@
 
 #include "menu.h"
 #include "cafeitemaddwidget.h"
+#include "cafeitemeditwidget.h"
+#include "cafeiteminfowidget.h"
 #include<QWidget>
 #include<QMenuBar>
 #include<QPushButton>
@@ -27,9 +29,11 @@ public slots:
     void search();
     void sort(int index);
     void add_menu();
-    void modify_menu();
     void add_cafe_item(CafeItem* item);
+    void modify_menu();
+    void menu_edited();
     void cancel();
+    void show_info();
     void set_search_name(int);
     void set_search_price(int);
     void set_search_format(int);
@@ -37,11 +41,14 @@ private:
     Menu menu_;
     int search_mode_;
     CafeItemAddWidget* addWidget;
+    CafeItemEditWidget* editWidget;
+    CafeItemInfoWidget* infoWidget;
 
     QLineEdit* searchBox;
 
     QTabWidget* tableTab;
     QTableWidget* table1;
+    void update_tables();
     void fill_table1(QTableWidget* table, const Menu& menu);
     void fill_table2(QTableWidget* table, const Menu& menu);
     void fill_table3(QTableWidget* table, const Menu& menu);

@@ -133,6 +133,26 @@ MainWindow::MainWindow(const Menu& menu, QWidget *parent):QWidget(parent), menu_
     connect(deleteItem, &QPushButton::clicked, this, &MainWindow::cancel);
     connect(searchBox, &QLineEdit::textChanged, this , &MainWindow::search);
     connect(addWidget, &CafeItemAddWidget::add_to_menu, this, &MainWindow::add_cafe_item);
+    connect(editWidget, &CafeItemEditWidget::edited, this, &MainWindow::menu_edited);
+    connect(table1, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_info);
+    connect(table2, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_info);
+    connect(table3, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_info);
+}
+
+void MainWindow::show_info(){
+    if(tableTab->currentIndex() == 0){
+        size_t index = table1->currentRow();
+        infoWidget = new CafeItemInfoWidget(&menu_[index]);
+        infoWidget->show();
+    }else if(tableTab->currentIndex() == 1){
+        size_t index = table2->currentRow();
+        infoWidget = new CafeItemInfoWidget(&(menu_.only_food()[index]));
+        infoWidget->show();
+    }else if(tableTab->currentIndex() == 2){
+        size_t index = table3->currentRow();
+        infoWidget = new CafeItemInfoWidget(&(menu_.only_drink()[index]));
+        infoWidget->show();
+    }
 }
 
 void MainWindow::add_menu(){
@@ -141,27 +161,28 @@ void MainWindow::add_menu(){
 
 void MainWindow::add_cafe_item(CafeItem* item){
     menu_.add(item);
-    fill_table1(table1, menu_);
-    fill_table2(table2, menu_);
-    fill_table3(table3, menu_);
+    update_tables();
 }
 
 void MainWindow::modify_menu(){
 
-    CafeEditVisitor visitor;
-
     if(tableTab->currentIndex() == 0){
         size_t index = table1->currentRow();
-        menu_[index].accept(visitor);
-        QWidget* editWidget = visitor.get_widget();
-        //editWidget->show();
-
+        editWidget = new CafeItemEditWidget(&menu_[index]);
+        editWidget->show();
     }else if(tableTab->currentIndex() == 1){
         size_t index = table2->currentRow();
-
+        editWidget = new CafeItemEditWidget(&(menu_.only_food()[index]));
+        editWidget->show();
     }else if(tableTab->currentIndex() == 2){
         size_t index = table3->currentRow();
+        editWidget = new CafeItemEditWidget(&(menu_.only_drink()[index]));
+        editWidget->show();
     }
+}
+
+void MainWindow::menu_edited(){
+    update_tables();
 }
 
 void MainWindow::sort(int index){
@@ -169,9 +190,7 @@ void MainWindow::sort(int index){
     //else if(index == 1) menu_.sort_by_price();
     //else if(tableTab->currentIndex() == 1) menu_.sort_by_gluten_free();
     //else if(tableTab->currentIndex() == 2) menu_.sort_by_format();
-    fill_table1(table1, menu_);
-    fill_table2(table2, menu_);
-    fill_table3(table3, menu_);
+    update_tables();
 }
 
 void MainWindow::search(){
@@ -241,11 +260,14 @@ void MainWindow::cancel(){
         size_t index = table3->currentRow();
         menu_.remove(&(menu_.only_drink()[index]));
     }
+    update_tables();
+}
+
+void MainWindow::update_tables(){
     fill_table1(table1, menu_);
     fill_table2(table2, menu_);
     fill_table3(table3, menu_);
 }
-
 
 void MainWindow::fill_table1(QTableWidget* table, const Menu& menu){
     table->clearContents();
