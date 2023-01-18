@@ -27,7 +27,7 @@ int main(int argc, char *argv[]){
     d.add(donut);
     d.add(apple);
 
-    Library a;
+    Library l;
     Manga* haikyu = new Manga("haikyu", "haikyu.png", "pallavolo" ,2, "bo", 134, 1, shounen);
     Manga* naruto = new Manga("naruto", "naruto.png", "samurai", 4, "qualcuno", 200, 1, shounen);
     Manga* onepiece = new Manga("onepiece", "onepiece.png", "pirati", 3, "oda", 160, 1, shounen);
@@ -37,18 +37,18 @@ int main(int argc, char *argv[]){
     Videogame* lol = new Videogame("lol", "lol.png", "touch grass", 1, "rito game", 3);
     Videogame* genshin = new Videogame("genshin", "genshin.png", "waifu", 8, "hoyoverse", 7);
     Videogame* osu = new Videogame("osu", "osu.png", "epilessia", 3, "ppy", 3);
-    a.add(haikyu);
-    a.add(naruto);
-    a.add(onepiece);
-    a.add(avatar);
-    a.add(avengers);
-    a.add(friends);
-    a.add(lol);
-    a.add(genshin);
-    a.add(osu);
+    l.add(haikyu);
+    l.add(naruto);
+    l.add(onepiece);
+    l.add(avatar);
+    l.add(avengers);
+    l.add(friends);
+    l.add(lol);
+    l.add(genshin);
+    l.add(osu);
 
-    QApplication app(argc, argv);
-    MainWindow w(d, a);
+    QApplication a(argc, argv);
+    MainWindow w(d, l);
     w.show();
-    return app.exec();
+    return a.exec();
 }

@@ -2,21 +2,22 @@
 #include "cafeinfovisitor.h"
 #include "entinfovisitor.h"
 
-MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent):QWidget(parent), menu_(menu), library_(library), search_mode_(0), addWidget(new CafeItemAddWidget){
+MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent):QWidget(parent), menu_(menu), library_(library), search_mode_(0),
+    menuAddWidget(new CafeItemAddWidget), libraryAddWidget(new LibraryAddWidget){
     setWindowTitle("QtCafe");
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
 
-    QMenuBar* menuBar = new QMenuBar;
+    QMenuBar* bar = new QMenuBar;
     QMenu* file = new QMenu("File");
     QMenu* help = new QMenu("?");
-    menuBar->addMenu(file);
-    menuBar->addMenu(help);
+    bar->addMenu(file);
+    bar->addMenu(help);
     file->addAction(new QAction("Nuovo", file));
     file->addAction(new QAction("Apri", file));
     file->addAction(new QAction("Chiudi", file));
     help->addAction(new QAction("Guida", help));
-    mainLayout->addWidget(menuBar);
+    mainLayout->addWidget(bar);
 
     QTabWidget* mainTab = new QTabWidget;
 
@@ -24,38 +25,38 @@ MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent
     QVBoxLayout* menuWidgetLayout = new QVBoxLayout;
     menuWidget->setLayout(menuWidgetLayout);
 
-    QHBoxLayout* menuLayout = new QHBoxLayout;
-    QGroupBox* buttonGroupBox = new QGroupBox("Edit");
-    QHBoxLayout* controlsLayout = new QHBoxLayout;
-    QPushButton* addItem = new QPushButton("Add");
-    QPushButton* modifyItem = new QPushButton("Edit");
-    QPushButton* deleteItem = new QPushButton("Delete");
-    controlsLayout->addWidget(addItem);
-    controlsLayout->addWidget(modifyItem);
-    controlsLayout->addWidget(deleteItem);
-    buttonGroupBox->setLayout(controlsLayout);
-    menuLayout->addWidget(buttonGroupBox);
+    QHBoxLayout* menuControlsLayout = new QHBoxLayout;
+    QGroupBox* menuButtonBox = new QGroupBox("Edit");
+    QHBoxLayout* menuButtonLayout = new QHBoxLayout;
+    QPushButton* addMenuButton = new QPushButton("Add");
+    QPushButton* editMenuButton = new QPushButton("Edit");
+    QPushButton* deleteMenuButton = new QPushButton("Delete");
+    menuButtonLayout->addWidget(addMenuButton);
+    menuButtonLayout->addWidget(editMenuButton);
+    menuButtonLayout->addWidget(deleteMenuButton);
+    menuButtonBox->setLayout(menuButtonLayout);
+    menuControlsLayout->addWidget(menuButtonBox);
 
-    QGroupBox* searchGroupBox = new QGroupBox("Search");
-    QHBoxLayout* searchLayout = new QHBoxLayout;
-    searchBox = new QLineEdit;
-    QGridLayout* searchOptionLayout = new QGridLayout;
-    QCheckBox* searchName = new QCheckBox("Name");
-    QCheckBox* searchPrice = new QCheckBox("Price");
-    QCheckBox* searchFormat = new QCheckBox("Format");
-    QButtonGroup* searchOptionButtonGroup = new QButtonGroup;
-    searchOptionButtonGroup->addButton(searchName);
-    searchOptionButtonGroup->addButton(searchPrice);
-    searchOptionButtonGroup->addButton(searchFormat);
-    searchOptionButtonGroup->setExclusive(true);
-    searchLayout->addWidget(searchBox);
-    searchOptionLayout->addWidget(searchName, 0, 0, 1, 1);
-    searchOptionLayout->addWidget(searchPrice, 1, 0, 1, 1);
-    searchOptionLayout->addWidget(searchFormat, 0, 1, 1, 1);
-    searchLayout->addLayout(searchOptionLayout);
-    searchGroupBox->setLayout(searchLayout);
-    menuLayout->addWidget(searchGroupBox);
-    menuWidgetLayout->addLayout(menuLayout);
+    QGroupBox* menuSearchBox = new QGroupBox("Search");
+    QHBoxLayout* menuSearchLayout = new QHBoxLayout;
+    menuSearch = new QLineEdit;
+    QGridLayout* menuSearchOptionLayout = new QGridLayout;
+    QCheckBox* menuSearchName = new QCheckBox("Name");
+    QCheckBox* menuSearchPrice = new QCheckBox("Price");
+    QCheckBox* menuSearchFormat = new QCheckBox("Format");
+    QButtonGroup* menuSearchOptionGroup = new QButtonGroup;
+    menuSearchOptionGroup->addButton(menuSearchName);
+    menuSearchOptionGroup->addButton(menuSearchPrice);
+    menuSearchOptionGroup->addButton(menuSearchFormat);
+    menuSearchOptionGroup->setExclusive(true);
+    menuSearchLayout->addWidget(menuSearch);
+    menuSearchOptionLayout->addWidget(menuSearchName, 0, 0, 1, 1);
+    menuSearchOptionLayout->addWidget(menuSearchPrice, 1, 0, 1, 1);
+    menuSearchOptionLayout->addWidget(menuSearchFormat, 0, 1, 1, 1);
+    menuSearchLayout->addLayout(menuSearchOptionLayout);
+    menuSearchBox->setLayout(menuSearchLayout);
+    menuControlsLayout->addWidget(menuSearchBox);
+    menuWidgetLayout->addLayout(menuControlsLayout);
 
     menuTab = new QTabWidget;
     menuTable = new QTableWidget;
@@ -124,7 +125,39 @@ MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent
     QWidget* libraryWidget = new QWidget;
     QVBoxLayout* libraryWidgetLayout = new QVBoxLayout;
     libraryWidget->setLayout(libraryWidgetLayout);
-    libraryWidgetLayout->addLayout(menuLayout);
+
+    QHBoxLayout* libraryControlsLayout = new QHBoxLayout;
+    QGroupBox* libraryButtonBox = new QGroupBox("Edit");
+    QHBoxLayout* libraryButtonLayout = new QHBoxLayout;
+    QPushButton* addLibraryButton = new QPushButton("Add");
+    QPushButton* editLibraryButton = new QPushButton("Edit");
+    QPushButton* deleteLibraryButton = new QPushButton("Delete");
+    libraryButtonLayout->addWidget(addLibraryButton);
+    libraryButtonLayout->addWidget(editLibraryButton);
+    libraryButtonLayout->addWidget(deleteLibraryButton);
+    libraryButtonBox->setLayout(libraryButtonLayout);
+    libraryControlsLayout->addWidget(libraryButtonBox);
+
+    QGroupBox* librarySearchBox = new QGroupBox("Search");
+    QHBoxLayout* librarySearchLayout = new QHBoxLayout;
+    librarySearch = new QLineEdit;
+    QGridLayout* librarySearchOptionLayout = new QGridLayout;
+    QCheckBox* librarySearchName = new QCheckBox("Name");
+    QCheckBox* librarySearchPrice = new QCheckBox("Quantity");
+    QCheckBox* librarySearchFormat = new QCheckBox("Description");
+    QButtonGroup* librarySearchOptionGroup = new QButtonGroup;
+    librarySearchOptionGroup->addButton(librarySearchName);
+    librarySearchOptionGroup->addButton(librarySearchPrice);
+    librarySearchOptionGroup->addButton(librarySearchFormat);
+    librarySearchOptionGroup->setExclusive(true);
+    librarySearchLayout->addWidget(librarySearch);
+    librarySearchOptionLayout->addWidget(librarySearchName, 0, 0, 1, 1);
+    librarySearchOptionLayout->addWidget(librarySearchPrice, 1, 0, 1, 1);
+    librarySearchOptionLayout->addWidget(librarySearchFormat, 0, 1, 1, 1);
+    librarySearchLayout->addLayout(librarySearchOptionLayout);
+    librarySearchBox->setLayout(librarySearchLayout);
+    libraryControlsLayout->addWidget(librarySearchBox);
+    libraryWidgetLayout->addLayout(libraryControlsLayout);
 
     libraryTab = new QTabWidget;
     libraryTable = new QTableWidget;
@@ -145,7 +178,7 @@ MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent
 
     fill_libraryTable(library_);
     libraryTab->addTab(libraryTable, "All");
-    /*
+
     mangaTable = new QTableWidget;
     QStringList headerMangaTable;
     headerMangaTable << "Name" << "Quantity" << "Author" << "Volume" << "Pages" << "Target";
@@ -164,31 +197,100 @@ MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent
 
     fill_mangaTable(library_);
     libraryTab->addTab(mangaTable, "Manga");
-    */
+
+    dvdTable = new QTableWidget;
+    QStringList headerDvdTable;
+    headerDvdTable << "Name" << "Quantity" << "Production" << "Length";
+    dvdTable->setColumnCount(4);
+    dvdTable->setHorizontalHeaderLabels(headerDvdTable);
+    dvdTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    dvdTable->verticalHeader()->hide();
+    dvdTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    dvdTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    dvdTable->setAlternatingRowColors(true);
+    dvdTable->setSortingEnabled(false);
+    dvdTable->resizeRowsToContents();
+    dvdTable->horizontalHeader()->setSectionsClickable(true);
+    dvdTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    dvdTable->setFocusPolicy(Qt::NoFocus);
+
+    fill_dvdTable(library_);
+    libraryTab->addTab(dvdTable, "Dvd");
+
+    videogameTable = new QTableWidget;
+    QStringList headerVideogameTable;
+    headerVideogameTable << "Name" << "Quantity" << "Company" << "Pegi";
+    videogameTable->setColumnCount(4);
+    videogameTable->setHorizontalHeaderLabels(headerVideogameTable);
+    videogameTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    videogameTable->verticalHeader()->hide();
+    videogameTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    videogameTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    videogameTable->setAlternatingRowColors(true);
+    videogameTable->setSortingEnabled(false);
+    videogameTable->resizeRowsToContents();
+    videogameTable->horizontalHeader()->setSectionsClickable(true);
+    videogameTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    videogameTable->setFocusPolicy(Qt::NoFocus);
+
+    fill_videogameTable(library_);
+    libraryTab->addTab(videogameTable, "Videogame");
+
     mainTab->addTab(libraryWidget, "Library");
     libraryWidgetLayout->addWidget(libraryTab);
-
     mainLayout->addWidget(mainTab);
     setLayout(mainLayout);
 
-    connect(addItem, &QPushButton::clicked, this, &MainWindow::add_menu);
-    connect(modifyItem, &QPushButton::clicked, this, &MainWindow::modify_menu);
-    connect(menuTable->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::sort);
-    connect(foodTable->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::sort);
-    connect(drinkTable->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::sort);
-    connect(searchName, &QCheckBox::stateChanged, this, &MainWindow::set_search_name);
-    connect(searchPrice, &QCheckBox::stateChanged, this, &MainWindow::set_search_price);
-    connect(searchFormat, &QCheckBox::stateChanged, this, &MainWindow::set_search_format);
-    connect(deleteItem, &QPushButton::clicked, this, &MainWindow::cancel);
-    connect(searchBox, &QLineEdit::textChanged, this , &MainWindow::search);
-    connect(addWidget, &CafeItemAddWidget::add_to_menu, this, &MainWindow::add_cafe_item);
-    connect(editWidget, &CafeItemEditWidget::edited, this, &MainWindow::menu_edited);
-    connect(menuTable, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_info);
-    connect(foodTable, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_info);
-    connect(drinkTable, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_info);
+    connect(addMenuButton, &QPushButton::clicked, this, &MainWindow::add_menu);
+    connect(menuAddWidget, &CafeItemAddWidget::add_to_menu, this, &MainWindow::add_cafe_item);
+    connect(editMenuButton, &QPushButton::clicked, this, &MainWindow::modify_menu);
+    //connect(editWidget, &CafeItemEditWidget::edited, this, &MainWindow::menu_edited);
+    connect(deleteMenuButton, &QPushButton::clicked, this, &MainWindow::menu_cancel);
+    connect(menuSearchName, &QCheckBox::stateChanged, this, &MainWindow::set_menu_search_name);
+    connect(menuSearchPrice, &QCheckBox::stateChanged, this, &MainWindow::set_menu_search_price);
+    connect(menuSearchFormat, &QCheckBox::stateChanged, this, &MainWindow::set_menu_search_format);
+    connect(menuSearch, &QLineEdit::textChanged, this , &MainWindow::menu_search);
+    connect(menuTable->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::menu_sort);
+    connect(foodTable->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::menu_sort);
+    connect(drinkTable->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::menu_sort);
+    connect(menuTable, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_menu_info);
+    connect(foodTable, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_menu_info);
+    connect(drinkTable, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_menu_info);
+
+    connect(addLibraryButton, &QPushButton::clicked, this, &MainWindow::add_library);
+    connect(libraryAddWidget, &LibraryAddWidget::add_to_library, this, &MainWindow::add_ent_item);
+    connect(deleteLibraryButton, &QPushButton::clicked, this, &MainWindow::library_cancel);
+
 }
 
-void MainWindow::show_info(){
+void MainWindow::add_library(){
+    libraryAddWidget->show();
+}
+
+void MainWindow::add_ent_item(Entertainment* item){
+    library_.add(item);
+    update_library_tables();
+}
+
+void MainWindow::library_cancel(){
+    if(libraryTab->currentIndex() == 0){
+        size_t index = libraryTable->currentRow();
+        library_.remove(index);
+    }else if(libraryTab->currentIndex() == 1){
+        size_t index = mangaTable->currentRow();
+        library_.remove(&(library_.only_manga()[index]));
+    }else if(libraryTab->currentIndex() == 2){
+        size_t index = dvdTable->currentRow();
+        library_.remove(&(library_.only_dvd()[index]));
+    }else if(libraryTab->currentIndex() == 3){
+        size_t index = videogameTable->currentRow();
+        library_.remove(&(library_.only_videogame()[index]));
+    }
+    update_library_tables();
+}
+
+
+void MainWindow::show_menu_info(){
     if(menuTab->currentIndex() == 0){
         size_t index = menuTable->currentRow();
         infoWidget = new CafeItemInfoWidget(&menu_[index]);
@@ -205,7 +307,7 @@ void MainWindow::show_info(){
 }
 
 void MainWindow::add_menu(){
-    addWidget->show();
+    menuAddWidget->show();
 }
 
 void MainWindow::add_cafe_item(CafeItem* item){
@@ -234,7 +336,7 @@ void MainWindow::menu_edited(){
     update_menu_tables();
 }
 
-void MainWindow::sort(int index){
+void MainWindow::menu_sort(int index){
     //if(index == 0) menu_.sort();
     //else if(index == 1) menu_.sort_by_price();
     //else if(menuTab->currentIndex() == 1) menu_.sort_by_gluten_free();
@@ -242,10 +344,10 @@ void MainWindow::sort(int index){
     update_menu_tables();
 }
 
-void MainWindow::search(){
+void MainWindow::menu_search(){
 
     if(search_mode_ == 0){
-        QString name = searchBox->displayText();
+        QString name = menuSearch->displayText();
         if(menuTab->currentIndex() == 0){
             Menu searched = menu_.search_by_name(name.toStdString());
             fill_menuTable(menuTable, searched);
@@ -257,7 +359,7 @@ void MainWindow::search(){
             fill_drinkTable(drinkTable, searched);
         }
     }else if(search_mode_ == 1){
-        QString price = searchBox->displayText();
+        QString price = menuSearch->displayText();
         if(price == "") price = "99999";
         if(menuTab->currentIndex() == 0){
             Menu searched = menu_.search_by_price(price.toDouble());
@@ -271,7 +373,7 @@ void MainWindow::search(){
         }
     }else if(search_mode_ == 2){
         /*
-        QString format_string = searchBox->displayText();
+        QString format_string = menuSearch->displayText();
         enum size format;
         if(format_string == "small") format = small;
         else if(format_string == "medium") format = medium;
@@ -286,19 +388,19 @@ void MainWindow::search(){
 
 }
 
-void MainWindow::set_search_name(int a){
+void MainWindow::set_menu_search_name(int a){
     if(a == Qt::CheckState::Checked) search_mode_ = 0;
 }
 
-void MainWindow::set_search_price(int a){
+void MainWindow::set_menu_search_price(int a){
     if(a == Qt::CheckState::Checked) search_mode_ = 1;
 }
 
-void MainWindow::set_search_format(int a){
+void MainWindow::set_menu_search_format(int a){
     if(a == Qt::CheckState::Checked) search_mode_ = 2;
 }
 
-void MainWindow::cancel(){
+void MainWindow::menu_cancel(){
     if(menuTab->currentIndex() == 0){
         size_t index = menuTable->currentRow();
         menu_.remove(index);
@@ -384,14 +486,14 @@ void MainWindow::fill_drinkTable(QTableWidget* table, const Menu& menu){
         table->setItem(i, 2, itemFormat);
     }
 }
-/*
+
 void MainWindow::update_library_tables(){
     fill_libraryTable(library_);
     fill_mangaTable(library_);
     fill_dvdTable(library_);
     fill_videogameTable(library_);
 }
-*/
+
 void MainWindow::fill_libraryTable(const Library& library){
     libraryTable->clearContents();
     libraryTable->setRowCount(0);
@@ -411,12 +513,12 @@ void MainWindow::fill_libraryTable(const Library& library){
         libraryTable->setItem(i, 2, itemQuantity);
     }
 }
-/*
+
 void MainWindow::fill_mangaTable(const Library& library){
     mangaTable->clearContents();
     mangaTable->setRowCount(0);
     Library manga = library.only_manga();
-    for(size_t i = 0; i < library.get_size(); i++){
+    for(size_t i = 0; i < manga.get_size(); i++){
         EntInfoVisitor visitor;
         manga[i].accept(visitor);
         mangaTable->insertRow(mangaTable->rowCount());
@@ -430,15 +532,15 @@ void MainWindow::fill_mangaTable(const Library& library){
         mangaTable->setItem(i, 1, itemQuantity);
         QString author = QString::fromStdString(visitor.get_author());
         QTableWidgetItem* itemAuthor = new QTableWidgetItem(author);
-        itemName->setTextAlignment(Qt::AlignCenter);
+        itemAuthor->setTextAlignment(Qt::AlignCenter);
         mangaTable->setItem(i, 2, itemAuthor);
         QString volume = QString::number(visitor.get_volume());
         QTableWidgetItem* itemVolume = new QTableWidgetItem(volume);
-        itemQuantity->setTextAlignment(Qt::AlignCenter);
+        itemVolume->setTextAlignment(Qt::AlignCenter);
         mangaTable->setItem(i, 3, itemVolume);
         QString pages = QString::number(visitor.get_pages());
         QTableWidgetItem* itemPages = new QTableWidgetItem(pages);
-        itemQuantity->setTextAlignment(Qt::AlignCenter);
+        itemPages->setTextAlignment(Qt::AlignCenter);
         mangaTable->setItem(i, 4, itemPages);
         QString target = "";
         switch(visitor.get_target()){
@@ -449,15 +551,62 @@ void MainWindow::fill_mangaTable(const Library& library){
         case none: target = "None"; break;
         }
         QTableWidgetItem* itemTarget = new QTableWidgetItem(target);
+        itemTarget->setTextAlignment(Qt::AlignCenter);
         mangaTable->setItem(i, 5, itemTarget);
     }
 }
 
 void MainWindow::fill_dvdTable(const Library& library){
-
+    dvdTable->clearContents();
+    dvdTable->setRowCount(0);
+    Library dvd = library.only_dvd();
+    for(size_t i = 0; i < dvd.get_size(); i++){
+        EntInfoVisitor visitor;
+        dvd[i].accept(visitor);
+        dvdTable->insertRow(dvdTable->rowCount());
+        QString name = QString::fromStdString(dvd[i].get_name());
+        QTableWidgetItem* itemName = new QTableWidgetItem(name);
+        itemName->setTextAlignment(Qt::AlignCenter);
+        dvdTable->setItem(i, 0, itemName);
+        QString quantity = QString::number(dvd[i].get_quantity());
+        QTableWidgetItem* itemQuantity = new QTableWidgetItem(quantity);
+        itemQuantity->setTextAlignment(Qt::AlignCenter);
+        dvdTable->setItem(i, 1, itemQuantity);
+        QString production = QString::fromStdString(visitor.get_production());
+        QTableWidgetItem* itemProducrion = new QTableWidgetItem(production);
+        itemProducrion->setTextAlignment(Qt::AlignCenter);
+        dvdTable->setItem(i, 2, itemProducrion);
+        QString length = QString::number(visitor.get_length());
+        QTableWidgetItem* itemLength= new QTableWidgetItem(length);
+        itemLength->setTextAlignment(Qt::AlignCenter);
+        dvdTable->setItem(i, 3, itemLength);
+    }
 }
 
 void MainWindow::fill_videogameTable(const Library& library){
-
+    videogameTable->clearContents();
+    videogameTable->setRowCount(0);
+    Library game = library.only_videogame();
+    for(size_t i = 0; i < game.get_size(); i++){
+        EntInfoVisitor visitor;
+        game[i].accept(visitor);
+        videogameTable->insertRow(videogameTable->rowCount());
+        QString name = QString::fromStdString(game[i].get_name());
+        QTableWidgetItem* itemName = new QTableWidgetItem(name);
+        itemName->setTextAlignment(Qt::AlignCenter);
+        videogameTable->setItem(i, 0, itemName);
+        QString quantity = QString::number(game[i].get_quantity());
+        QTableWidgetItem* itemQuantity = new QTableWidgetItem(quantity);
+        itemQuantity->setTextAlignment(Qt::AlignCenter);
+        videogameTable->setItem(i, 1, itemQuantity);
+        QString company = QString::fromStdString(visitor.get_company());
+        QTableWidgetItem* itemCompany = new QTableWidgetItem(company);
+        itemCompany->setTextAlignment(Qt::AlignCenter);
+        videogameTable->setItem(i, 2, itemCompany);
+        QString pegi = QString::number(visitor.get_pegi());
+        QTableWidgetItem* itemPegi= new QTableWidgetItem(pegi);
+        itemPegi->setTextAlignment(Qt::AlignCenter);
+        videogameTable->setItem(i, 3, itemPegi);
+    }
 }
-*/
+

@@ -24,6 +24,7 @@ SOURCES += \
     entertainment.cpp \
     food.cpp \
     library.cpp \
+    libraryaddwidget.cpp \
     main.cpp \
     mainwindow.cpp \
     manga.cpp \
@@ -52,6 +53,7 @@ HEADERS += \
     entvisitor.h \
     food.h \
     library.h \
+    libraryaddwidget.h \
     mainwindow.h \
     manga.h \
     menu.h \

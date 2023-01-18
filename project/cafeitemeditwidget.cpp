@@ -64,7 +64,7 @@ void CafeItemEditWidget::edit_item(){
         static_cast<Drink*>(item_)->set_format(itemFormat);
     }
     this->hide();
-    emit edited();
+    //emit edited();
 }
 
 void CafeItemEditWidget::browse_image(){
