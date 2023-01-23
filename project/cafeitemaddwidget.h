@@ -34,6 +34,7 @@ private:
     QPushButton* cancelButton;
     void FoodExtraInfo();
     void DrinkExtraInfo();
+    void clear_form();
 signals:
     void add_to_menu(CafeItem* item);
 public slots:

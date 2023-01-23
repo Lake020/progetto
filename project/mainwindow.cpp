@@ -2,8 +2,10 @@
 #include "cafeinfovisitor.h"
 #include "entinfovisitor.h"
 
-MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent):QWidget(parent), menu_(menu), library_(library), search_mode_(0),
-    menuAddWidget(new CafeItemAddWidget), libraryAddWidget(new LibraryAddWidget){
+MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent):QWidget(parent),
+    menu_(menu), library_(library), menu_search_mode_(-1),
+    menuAddWidget(new CafeItemAddWidget), libraryAddWidget(new LibraryAddWidget)
+    {
     setWindowTitle("QtCafe");
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
@@ -64,6 +66,7 @@ MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent
     headerMenuTable << "Name" << "Price";
     menuTable->setColumnCount(2);
     menuTable->setHorizontalHeaderLabels(headerMenuTable);
+    menuTable->horizontalHeader()->setStyleSheet("font-weight: bold");
     menuTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     menuTable->verticalHeader()->hide();
     menuTable->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -84,6 +87,7 @@ MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent
     headerFoodTable << "Name" << "Price" << "Gluten free";
     foodTable->setColumnCount(3);
     foodTable->setHorizontalHeaderLabels(headerFoodTable);
+    foodTable->horizontalHeader()->setStyleSheet("font-weight: bold");
     foodTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     foodTable->verticalHeader()->hide();
     foodTable->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -103,6 +107,7 @@ MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent
     headerDrinkTable << "Name" << "Price" << "Format";
     drinkTable->setColumnCount(3);
     drinkTable->setHorizontalHeaderLabels(headerDrinkTable);
+    drinkTable->horizontalHeader()->setStyleSheet("font-weight: bold");
     drinkTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     drinkTable->verticalHeader()->hide();
     drinkTable->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -143,17 +148,17 @@ MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent
     librarySearch = new QLineEdit;
     QGridLayout* librarySearchOptionLayout = new QGridLayout;
     QCheckBox* librarySearchName = new QCheckBox("Name");
-    QCheckBox* librarySearchPrice = new QCheckBox("Quantity");
-    QCheckBox* librarySearchFormat = new QCheckBox("Description");
+    QCheckBox* librarySearchQuantity = new QCheckBox("Quantity");
+    QCheckBox* librarySearchDescription = new QCheckBox("Description");
     QButtonGroup* librarySearchOptionGroup = new QButtonGroup;
     librarySearchOptionGroup->addButton(librarySearchName);
-    librarySearchOptionGroup->addButton(librarySearchPrice);
-    librarySearchOptionGroup->addButton(librarySearchFormat);
+    librarySearchOptionGroup->addButton(librarySearchQuantity);
+    librarySearchOptionGroup->addButton(librarySearchDescription);
     librarySearchOptionGroup->setExclusive(true);
     librarySearchLayout->addWidget(librarySearch);
     librarySearchOptionLayout->addWidget(librarySearchName, 0, 0, 1, 1);
-    librarySearchOptionLayout->addWidget(librarySearchPrice, 1, 0, 1, 1);
-    librarySearchOptionLayout->addWidget(librarySearchFormat, 0, 1, 1, 1);
+    librarySearchOptionLayout->addWidget(librarySearchQuantity, 1, 0, 1, 1);
+    librarySearchOptionLayout->addWidget(librarySearchDescription, 0, 1, 1, 1);
     librarySearchLayout->addLayout(librarySearchOptionLayout);
     librarySearchBox->setLayout(librarySearchLayout);
     libraryControlsLayout->addWidget(librarySearchBox);
@@ -162,9 +167,10 @@ MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent
     libraryTab = new QTabWidget;
     libraryTable = new QTableWidget;
     QStringList headerLibraryTable;
-    headerLibraryTable << "Name" << "Description" << "Quantity";
+    headerLibraryTable << "Name" << "Quantity" << "Description";
     libraryTable->setColumnCount(3);
     libraryTable->setHorizontalHeaderLabels(headerLibraryTable);
+    libraryTable->horizontalHeader()->setStyleSheet("font-weight: bold");
     libraryTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     libraryTable->verticalHeader()->hide();
     libraryTable->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -184,6 +190,7 @@ MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent
     headerMangaTable << "Name" << "Quantity" << "Author" << "Volume" << "Pages" << "Target";
     mangaTable->setColumnCount(6);
     mangaTable->setHorizontalHeaderLabels(headerMangaTable);
+    mangaTable->horizontalHeader()->setStyleSheet("font-weight: bold");
     mangaTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     mangaTable->verticalHeader()->hide();
     mangaTable->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -203,6 +210,7 @@ MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent
     headerDvdTable << "Name" << "Quantity" << "Production" << "Length";
     dvdTable->setColumnCount(4);
     dvdTable->setHorizontalHeaderLabels(headerDvdTable);
+    dvdTable->horizontalHeader()->setStyleSheet("font-weight: bold");
     dvdTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     dvdTable->verticalHeader()->hide();
     dvdTable->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -222,6 +230,7 @@ MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent
     headerVideogameTable << "Name" << "Quantity" << "Company" << "Pegi";
     videogameTable->setColumnCount(4);
     videogameTable->setHorizontalHeaderLabels(headerVideogameTable);
+    videogameTable->horizontalHeader()->setStyleSheet("font-weight: bold");
     videogameTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     videogameTable->verticalHeader()->hide();
     videogameTable->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -244,7 +253,6 @@ MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent
     connect(addMenuButton, &QPushButton::clicked, this, &MainWindow::add_menu);
     connect(menuAddWidget, &CafeItemAddWidget::add_to_menu, this, &MainWindow::add_cafe_item);
     connect(editMenuButton, &QPushButton::clicked, this, &MainWindow::modify_menu);
-    //connect(editWidget, &CafeItemEditWidget::edited, this, &MainWindow::menu_edited);
     connect(deleteMenuButton, &QPushButton::clicked, this, &MainWindow::menu_cancel);
     connect(menuSearchName, &QCheckBox::stateChanged, this, &MainWindow::set_menu_search_name);
     connect(menuSearchPrice, &QCheckBox::stateChanged, this, &MainWindow::set_menu_search_price);
@@ -259,8 +267,20 @@ MainWindow::MainWindow(const Menu& menu, const Library& library, QWidget *parent
 
     connect(addLibraryButton, &QPushButton::clicked, this, &MainWindow::add_library);
     connect(libraryAddWidget, &LibraryAddWidget::add_to_library, this, &MainWindow::add_ent_item);
+    connect(editLibraryButton, &QPushButton::clicked, this, &MainWindow::modify_library);
     connect(deleteLibraryButton, &QPushButton::clicked, this, &MainWindow::library_cancel);
-
+    connect(librarySearchName, &QCheckBox::stateChanged, this, &MainWindow::set_library_search_name);
+    connect(librarySearchDescription, &QCheckBox::stateChanged, this, &MainWindow::set_library_search_description);
+    connect(librarySearchQuantity, &QCheckBox::stateChanged, this, &MainWindow::set_library_search_quantity);
+    connect(librarySearch, &QLineEdit::textChanged, this , &MainWindow::library_search);
+    connect(libraryTable->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::library_sort);
+    connect(mangaTable->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::library_sort);
+    connect(dvdTable->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::library_sort);
+    connect(videogameTable->horizontalHeader(), &QHeaderView::sectionClicked, this, &MainWindow::library_sort);
+    connect(libraryTable, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_library_info);
+    connect(mangaTable, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_library_info);
+    connect(dvdTable, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_library_info);
+    connect(videogameTable, &QTableWidget::cellDoubleClicked, this, &MainWindow::show_library_info);
 }
 
 void MainWindow::add_library(){
@@ -273,22 +293,191 @@ void MainWindow::add_ent_item(Entertainment* item){
 }
 
 void MainWindow::library_cancel(){
-    if(libraryTab->currentIndex() == 0){
-        size_t index = libraryTable->currentRow();
-        library_.remove(index);
-    }else if(libraryTab->currentIndex() == 1){
-        size_t index = mangaTable->currentRow();
-        library_.remove(&(library_.only_manga()[index]));
-    }else if(libraryTab->currentIndex() == 2){
-        size_t index = dvdTable->currentRow();
-        library_.remove(&(library_.only_dvd()[index]));
-    }else if(libraryTab->currentIndex() == 3){
-        size_t index = videogameTable->currentRow();
-        library_.remove(&(library_.only_videogame()[index]));
+    if(static_cast<QTableWidget*>(libraryTab->currentWidget())->currentRow() >= 0){
+        QMessageBox warning;
+        warning.setIcon(QMessageBox::Question);
+        warning.setWindowTitle("Delete");
+        warning.setText("<b>You are deleting an item.</b>");
+        warning.setInformativeText("Are you sure you want to delete it?\nYou can't undo this action later.");
+        warning.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        warning.setDefaultButton(QMessageBox::No);
+        int ret = warning.exec();
+        switch(ret){
+        case QMessageBox::Yes :
+            if(libraryTab->currentIndex() == 0){
+                size_t index = libraryTable->currentRow();
+                library_.remove(index);
+            }else if(libraryTab->currentIndex() == 1){
+                size_t index = mangaTable->currentRow();
+                library_.remove(&(library_.only_manga()[index]));
+            }else if(libraryTab->currentIndex() == 2){
+                size_t index = dvdTable->currentRow();
+                library_.remove(&(library_.only_dvd()[index]));
+            }else if(libraryTab->currentIndex() == 3){
+                size_t index = videogameTable->currentRow();
+                library_.remove(&(library_.only_videogame()[index]));
+            }
+            update_library_tables();
+            break;
+        case QMessageBox::No : break;
+        default: break;
+        }
     }
+}
+
+void MainWindow::modify_library(){
+    if(libraryTab->currentIndex() == 0 && libraryTable->currentRow() >= 0){
+        size_t index = libraryTable->currentRow();
+        libraryEditWidget = new LibraryEditWidget(&library_[index]);
+        connect(libraryEditWidget, &LibraryEditWidget::edited, this, &MainWindow::library_edited);
+        libraryEditWidget->show();
+    }else if(libraryTab->currentIndex() == 1 && mangaTable->currentRow() >= 0){
+        size_t index = mangaTable->currentRow();
+        libraryEditWidget = new LibraryEditWidget(&(library_.only_manga()[index]));
+        connect(libraryEditWidget, &LibraryEditWidget::edited, this, &MainWindow::library_edited);
+        libraryEditWidget->show();
+    }else if(libraryTab->currentIndex() == 2 && dvdTable->currentRow() >= 0){
+        size_t index = dvdTable->currentRow();
+        libraryEditWidget = new LibraryEditWidget(&(library_.only_dvd()[index]));
+        connect(libraryEditWidget, &LibraryEditWidget::edited, this, &MainWindow::library_edited);
+        libraryEditWidget->show();
+    }else if(libraryTab->currentIndex() == 3 && videogameTable->currentRow() >= 0){
+        size_t index = videogameTable->currentRow();
+        libraryEditWidget = new LibraryEditWidget(&(library_.only_videogame()[index]));
+        connect(libraryEditWidget, &LibraryEditWidget::edited, this, &MainWindow::library_edited);
+        libraryEditWidget->show();
+    }
+}
+
+void MainWindow::library_edited(){
     update_library_tables();
 }
 
+void MainWindow::show_library_info(){
+    if(libraryTab->currentIndex() == 0){
+        size_t index = libraryTable->currentRow();
+        libraryInfoWidget = new LibraryInfoWidget(&library_[index]);
+        libraryInfoWidget->show();
+    }else if(libraryTab->currentIndex() == 1){
+        size_t index = mangaTable->currentRow();
+        libraryInfoWidget = new LibraryInfoWidget(&(library_.only_manga()[index]));
+        libraryInfoWidget->show();
+    }else if(libraryTab->currentIndex() == 2){
+        size_t index = dvdTable->currentRow();
+        libraryInfoWidget = new LibraryInfoWidget(&(library_.only_dvd()[index]));
+        libraryInfoWidget->show();
+    }else if(libraryTab->currentIndex() == 3){
+        size_t index = videogameTable->currentRow();
+        libraryInfoWidget = new LibraryInfoWidget(&(library_.only_videogame()[index]));
+        libraryInfoWidget->show();
+    }
+}
+
+void MainWindow::library_sort(int index){
+    if(index == 0) library_.sort();
+    else if(index == 1) library_.sort_by_quantity();
+    //else if(index == 2)
+      //  switch()
+    update_menu_tables();
+}
+
+void MainWindow::set_library_search_name(int a){
+    if(a == Qt::CheckState::Checked) library_search_mode_ = 0;
+}
+
+void MainWindow::set_library_search_quantity(int a){
+    if(a == Qt::CheckState::Checked) library_search_mode_ = 1;
+}
+
+void MainWindow::set_library_search_description(int a){
+    if(a == Qt::CheckState::Checked) library_search_mode_ = 2;
+}
+
+void MainWindow::library_search(){
+    QString search = librarySearch->displayText();
+    if(search == "") update_library_tables();
+    else if(library_search_mode_ == 0){
+        if(libraryTab->currentIndex() == 0){
+            Library searched = library_.search_by_name(search.toStdString());
+            fill_libraryTable(searched);
+        }else if(libraryTab->currentIndex() == 1){
+            Library searched = library_.only_manga().search_by_name(search.toStdString());
+            fill_mangaTable(searched);
+        }else if(libraryTab->currentIndex() == 2){
+            Library searched = library_.only_dvd().search_by_name(search.toStdString());
+            fill_dvdTable(searched);
+        }else{
+            Library searched = library_.only_videogame().search_by_name(search.toStdString());
+            fill_videogameTable(searched);
+        }
+    }else if(library_search_mode_ == 1){
+        if(libraryTab->currentIndex() == 0){
+            Library searched = library_.search_by_quantity(search.toUInt());
+            fill_libraryTable(searched);
+        }else if(libraryTab->currentIndex() == 1){
+            Library searched = library_.only_manga().search_by_quantity(search.toUInt());
+            fill_mangaTable(searched);
+        }else if(libraryTab->currentIndex() == 2){
+            Library searched = library_.only_dvd().search_by_quantity(search.toUInt());
+            fill_dvdTable(searched);
+        }else{
+            Library searched = library_.only_videogame().search_by_quantity(search.toUInt());
+            fill_videogameTable(searched);
+        }
+    }else if(library_search_mode_ == 2){
+        if(libraryTab->currentIndex() == 0){
+            Library searched = library_.search_by_description(search.toStdString());
+            fill_libraryTable(searched);
+        }else if(libraryTab->currentIndex() == 1){
+            Library searched = library_.only_manga().search_by_description(search.toStdString());
+            fill_mangaTable(searched);
+        }else if(libraryTab->currentIndex() == 2){
+            Library searched = library_.only_dvd().search_by_description(search.toStdString());
+            fill_dvdTable(searched);
+        }else{
+            Library searched = library_.only_videogame().search_by_description(search.toStdString());
+            fill_videogameTable(searched);
+        }
+    }
+
+
+}
+
+
+
+void MainWindow::add_menu(){
+    menuAddWidget->show();
+}
+
+void MainWindow::add_cafe_item(CafeItem* item){
+    menu_.add(item);
+    update_menu_tables();
+}
+
+void MainWindow::modify_menu(){
+
+    if(menuTab->currentIndex() == 0 && menuTable->currentRow() >= 0){
+        size_t index = menuTable->currentRow();
+        menuEditWidget = new CafeItemEditWidget(&menu_[index]);
+        connect(menuEditWidget, &CafeItemEditWidget::edited, this, &MainWindow::menu_edited);
+        menuEditWidget->show();
+    }else if(menuTab->currentIndex() == 1 && foodTable->currentRow() >= 0){
+        size_t index = foodTable->currentRow();
+        menuEditWidget = new CafeItemEditWidget(&(menu_.only_food()[index]));
+        connect(menuEditWidget, &CafeItemEditWidget::edited, this, &MainWindow::menu_edited);
+        menuEditWidget->show();
+    }else if(menuTab->currentIndex() == 2 && drinkTable->currentRow() >= 0){
+        size_t index = drinkTable->currentRow();
+        menuEditWidget = new CafeItemEditWidget(&(menu_.only_drink()[index]));
+        connect(menuEditWidget, &CafeItemEditWidget::edited, this, &MainWindow::menu_edited);
+        menuEditWidget->show();
+    }
+
+}
+
+void MainWindow::menu_edited(){
+    update_menu_tables();
+}
 
 void MainWindow::show_menu_info(){
     if(menuTab->currentIndex() == 0){
@@ -306,47 +495,17 @@ void MainWindow::show_menu_info(){
     }
 }
 
-void MainWindow::add_menu(){
-    menuAddWidget->show();
-}
-
-void MainWindow::add_cafe_item(CafeItem* item){
-    menu_.add(item);
-    update_menu_tables();
-}
-
-void MainWindow::modify_menu(){
-
-    if(menuTab->currentIndex() == 0){
-        size_t index = menuTable->currentRow();
-        editWidget = new CafeItemEditWidget(&menu_[index]);
-        editWidget->show();
-    }else if(menuTab->currentIndex() == 1){
-        size_t index = foodTable->currentRow();
-        editWidget = new CafeItemEditWidget(&(menu_.only_food()[index]));
-        editWidget->show();
-    }else if(menuTab->currentIndex() == 2){
-        size_t index = drinkTable->currentRow();
-        editWidget = new CafeItemEditWidget(&(menu_.only_drink()[index]));
-        editWidget->show();
-    }
-}
-
-void MainWindow::menu_edited(){
-    update_menu_tables();
-}
-
 void MainWindow::menu_sort(int index){
-    //if(index == 0) menu_.sort();
-    //else if(index == 1) menu_.sort_by_price();
-    //else if(menuTab->currentIndex() == 1) menu_.sort_by_gluten_free();
+    if(index == 0) menu_.sort();
+    else if(index == 1) menu_.sort_by_price();
+    else if(menuTab->currentIndex() == 1) menu_.sort_by_gluten_free();
     //else if(menuTab->currentIndex() == 2) menu_.sort_by_format();
     update_menu_tables();
 }
 
 void MainWindow::menu_search(){
 
-    if(search_mode_ == 0){
+    if(menu_search_mode_ == 0){
         QString name = menuSearch->displayText();
         if(menuTab->currentIndex() == 0){
             Menu searched = menu_.search_by_name(name.toStdString());
@@ -358,7 +517,7 @@ void MainWindow::menu_search(){
             Menu searched = menu_.only_drink().search_by_name(name.toStdString());
             fill_drinkTable(drinkTable, searched);
         }
-    }else if(search_mode_ == 1){
+    }else if(menu_search_mode_ == 1){
         QString price = menuSearch->displayText();
         if(price == "") price = "99999";
         if(menuTab->currentIndex() == 0){
@@ -371,7 +530,7 @@ void MainWindow::menu_search(){
             Menu searched = menu_.only_drink().search_by_price(price.toDouble());
             fill_drinkTable(drinkTable, searched);
         }
-    }else if(search_mode_ == 2){
+    }else if(menu_search_mode_ == 2){
         /*
         QString format_string = menuSearch->displayText();
         enum size format;
@@ -384,34 +543,48 @@ void MainWindow::menu_search(){
         }
         */
     }
-
-
 }
 
 void MainWindow::set_menu_search_name(int a){
-    if(a == Qt::CheckState::Checked) search_mode_ = 0;
+    if(a == Qt::CheckState::Checked) menu_search_mode_ = 0;
 }
 
 void MainWindow::set_menu_search_price(int a){
-    if(a == Qt::CheckState::Checked) search_mode_ = 1;
+    if(a == Qt::CheckState::Checked) menu_search_mode_ = 1;
 }
 
 void MainWindow::set_menu_search_format(int a){
-    if(a == Qt::CheckState::Checked) search_mode_ = 2;
+    if(a == Qt::CheckState::Checked) menu_search_mode_ = 2;
 }
 
 void MainWindow::menu_cancel(){
-    if(menuTab->currentIndex() == 0){
-        size_t index = menuTable->currentRow();
-        menu_.remove(index);
-    }else if(menuTab->currentIndex() == 1){
-        size_t index = foodTable->currentRow();
-        menu_.remove(&(menu_.only_food()[index]));
-    }else if(menuTab->currentIndex() == 2){
-        size_t index = drinkTable->currentRow();
-        menu_.remove(&(menu_.only_drink()[index]));
+    if(static_cast<QTableWidget*>(menuTab->currentWidget())->currentRow() >= 0){
+        QMessageBox warning;
+        warning.setIcon(QMessageBox::Question);
+        warning.setWindowTitle("Delete");
+        warning.setText("<b>You are deleting an item.</b>");
+        warning.setInformativeText("Are you sure you want to delete it?\nYou can't undo this action later.");
+        warning.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        warning.setDefaultButton(QMessageBox::No);
+        int ret = warning.exec();
+        switch(ret){
+        case QMessageBox::Yes :
+            if(menuTab->currentIndex() == 0){
+                size_t index = menuTable->currentRow();
+                menu_.remove(index);
+            }else if(menuTab->currentIndex() == 1){
+                size_t index = foodTable->currentRow();
+                menu_.remove(&(menu_.only_food()[index]));
+            }else if(menuTab->currentIndex() == 2){
+                size_t index = drinkTable->currentRow();
+                menu_.remove(&(menu_.only_drink()[index]));
+            }
+            update_menu_tables();
+            break;
+        case QMessageBox::No : break;
+        default: break;
+        }
     }
-    update_menu_tables();
 }
 
 void MainWindow::update_menu_tables(){
@@ -503,14 +676,14 @@ void MainWindow::fill_libraryTable(const Library& library){
         QTableWidgetItem* itemName = new QTableWidgetItem(name);
         itemName->setTextAlignment(Qt::AlignCenter);
         libraryTable->setItem(i, 0, itemName);
-        QString description = QString::fromStdString(library[i].get_description());
-        QTableWidgetItem* itemDescription = new QTableWidgetItem(description);
-        itemDescription->setTextAlignment(Qt::AlignCenter);
-        libraryTable->setItem(i, 1, itemDescription);
         QString quantity = QString::number(library[i].get_quantity());
         QTableWidgetItem* itemQuantity = new QTableWidgetItem(quantity);
         itemQuantity->setTextAlignment(Qt::AlignCenter);
-        libraryTable->setItem(i, 2, itemQuantity);
+        libraryTable->setItem(i, 1, itemQuantity);
+        QString description = QString::fromStdString(library[i].get_description());
+        QTableWidgetItem* itemDescription = new QTableWidgetItem(description);
+        itemDescription->setTextAlignment(Qt::AlignCenter);
+        libraryTable->setItem(i, 2, itemDescription);
     }
 }
 
@@ -610,3 +783,152 @@ void MainWindow::fill_videogameTable(const Library& library){
     }
 }
 
+void MainWindow::load_file(){
+    fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "/home/", tr("Files (*.json)"));
+    QFile file(fileName);
+    if(file.open(QIODevice::ReadOnly)){
+        QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+        QJsonObject ob = doc.object();
+        QJsonArray menu = ob["Menu"].toArray();
+        QJsonArray library = ob["Library"].toArray();
+        for(int i = 0; i < menu.size(); i++){
+            QJsonObject obj = menu[i].toObject();
+            QString type = obj["type"].toString();
+            if(type == "Food"){
+                Food* f = new Food(obj["name"].toString().toStdString(),
+                                obj["image"].toString().toStdString(),
+                                obj["price"].toDouble(),
+                                obj["gluten_free"].toBool());
+                menu_.add(f);
+            }else if(type == "Drink"){
+                enum size format;
+                switch(obj["format"].toInt()){
+                case small: format = small; break;
+                case medium: format = medium; break;
+                case big: format = big; break;
+                }
+                Drink* d = new Drink(obj["name"].toString().toStdString(),
+                                obj["image"].toString().toStdString(),
+                                obj["price"].toDouble(),
+                                format);
+                menu_.add(d);
+            }
+        }
+        for(int i = 0; i < library.size(); i++){
+            QJsonObject obj = library[i].toObject();
+            QString type = obj["type"].toString();
+            if(type == "Manga"){
+                Target target;
+                switch(obj["target"].toInt()){
+                case shounen: target = shounen; break;
+                case seinen: target = seinen; break;
+                case shojo: target = shojo; break;
+                case josei: target = josei; break;
+                case none: target = none; break;
+                }
+                Manga* m = new Manga(obj["name"].toString().toStdString(),
+                                    obj["image"].toString().toStdString(),
+                                    obj["description"].toString().toStdString(),
+                                    obj["quantity"].toInt(),
+                                    obj["author"].toString().toStdString(),
+                                    obj["pages"].toInt(),
+                                    obj["volume"].toInt(),
+                                    target);
+                library_.add(m);
+            }else if(type == "Dvd"){
+                Dvd* d = new Dvd(obj["name"].toString().toStdString(),
+                                obj["image"].toString().toStdString(),
+                                obj["description"].toString().toStdString(),
+                                obj["quantity"].toInt(),
+                                obj["production"].toString().toStdString(),
+                                obj["length"].toInt());
+                library_.add(d);
+            }else if(type == "Series"){
+                Series* s = new Series(obj["name"].toString().toStdString(),
+                                obj["image"].toString().toStdString(),
+                                obj["description"].toString().toStdString(),
+                                obj["quantity"].toInt(),
+                                obj["production"].toString().toStdString(),
+                                obj["length"].toInt(),
+                                obj["episodes"].toInt());
+                library_.add(s);
+            }else if(type == "Videogame"){
+                Videogame* g = new Videogame(obj["name"].toString().toStdString(),
+                                obj["image"].toString().toStdString(),
+                                obj["description"].toString().toStdString(),
+                                obj["quantity"].toInt(),
+                                obj["company"].toString().toStdString(),
+                                obj["pegi"].toInt());
+                library_.add(g);
+            }
+        }
+        file.close();
+    }
+}
+
+void MainWindow::save_file(){
+    QFile file(fileName);
+    if(file.open(QIODevice::WriteOnly)){
+        QJsonArray menu;
+        QJsonArray library;
+        for(size_t i = 0; i < menu_.get_size(); i++){
+            QJsonObject obj;
+            if(Food* p = dynamic_cast<Food*>(&menu_[i])){
+                obj.insert("type", "Food");
+                obj.insert("name", QJsonValue::fromVariant(QString::fromStdString(p->get_name())));
+                obj.insert("image", QJsonValue::fromVariant(QString::fromStdString(p->get_image())));
+                obj.insert("price", QJsonValue::fromVariant(p->get_price()));
+                obj.insert("gluten_free", QJsonValue::fromVariant(p->is_gluten_free()));
+            }else if(Drink* p = dynamic_cast<Drink*>(&menu_[i])){
+                obj.insert("type", "Drink");
+                obj.insert("name", QJsonValue::fromVariant(QString::fromStdString(p->get_name())));
+                obj.insert("image", QJsonValue::fromVariant(QString::fromStdString(p->get_image())));
+                obj.insert("price", QJsonValue::fromVariant(p->get_price()));
+                obj.insert("format", QJsonValue::fromVariant(p->get_format()));
+            }
+            menu.append(obj);
+        }
+        for(size_t i = 0; i < library_.get_size(); i++){
+            QJsonObject obj;
+            if(Manga* p = dynamic_cast<Manga*>(&library_[i])){
+                obj.insert("type", "Manga");
+                obj.insert("name", QJsonValue::fromVariant(QString::fromStdString(p->get_name())));
+                obj.insert("image", QJsonValue::fromVariant(QString::fromStdString(p->get_image())));
+                obj.insert("description", QJsonValue::fromVariant(QString::fromStdString(p->get_description())));
+                obj.insert("quantity", QJsonValue::fromVariant(p->get_quantity()));
+                obj.insert("author", QJsonValue::fromVariant(QString::fromStdString(p->get_author())));
+                obj.insert("pages", QJsonValue::fromVariant(p->get_pages()));
+                obj.insert("volume", QJsonValue::fromVariant(p->get_volume()));
+                obj.insert("target", QJsonValue::fromVariant(p->get_target()));
+            }else if(Series* p = dynamic_cast<Series*>(&library_[i])){
+                obj.insert("type", "Series");
+                obj.insert("name", QJsonValue::fromVariant(QString::fromStdString(p->get_name())));
+                obj.insert("image", QJsonValue::fromVariant(QString::fromStdString(p->get_image())));
+                obj.insert("description", QJsonValue::fromVariant(QString::fromStdString(p->get_description())));
+                obj.insert("quantity", QJsonValue::fromVariant(p->get_quantity()));
+                obj.insert("production", QJsonValue::fromVariant(QString::fromStdString(p->get_production())));
+                obj.insert("length", QJsonValue::fromVariant(p->get_length()));
+                obj.insert("episodes", QJsonValue::fromVariant(p->get_episodes()));
+            }else if(Dvd* p = dynamic_cast<Dvd*>(&library_[i])){
+                obj.insert("type", "Dvd");
+                obj.insert("name", QJsonValue::fromVariant(QString::fromStdString(p->get_name())));
+                obj.insert("image", QJsonValue::fromVariant(QString::fromStdString(p->get_image())));
+                obj.insert("description", QJsonValue::fromVariant(QString::fromStdString(p->get_description())));
+                obj.insert("quantity", QJsonValue::fromVariant(p->get_quantity()));
+                obj.insert("production", QJsonValue::fromVariant(QString::fromStdString(p->get_production())));
+                obj.insert("length", QJsonValue::fromVariant(p->get_length()));
+            }else if(Videogame* p = dynamic_cast<Videogame*>(&library_[i])){
+                obj.insert("type", "Videogame");
+                obj.insert("name", QJsonValue::fromVariant(QString::fromStdString(p->get_name())));
+                obj.insert("image", QJsonValue::fromVariant(QString::fromStdString(p->get_image())));
+                obj.insert("description", QJsonValue::fromVariant(QString::fromStdString(p->get_description())));
+                obj.insert("quantity", QJsonValue::fromVariant(p->get_quantity()));
+                obj.insert("company", QJsonValue::fromVariant(QString::fromStdString(p->get_company())));
+                obj.insert("pegi", QJsonValue::fromVariant(p->get_pegi()));
+            }
+            library.append(obj);
+        }
+        QJsonObject ob;
+        file.close();
+    }
+}

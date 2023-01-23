@@ -38,12 +38,12 @@ size_t Menu::get_size() const{
 
 void Menu::sort(){
     CompareName<CafeItem*> pred;
-    items_.sort_by(0, get_size() - 1, pred);
+    items_.sort_by(0, get_size(), pred);
 }
 
 void Menu::sort_by_price(){
     ComparePrice<CafeItem*> pred;
-    items_.sort_by(0, get_size() - 1, pred);
+    items_.sort_by(0, get_size(), pred);
 }
 
 Menu Menu::search_by_name(const std::string& name) const{

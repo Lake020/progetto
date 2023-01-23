@@ -1,5 +1,10 @@
 #include "entaddvisitor.h"
 
+#include "manga.h"
+#include "dvd.h"
+#include "series.h"
+#include "videogame.h"
+
 void EntAddVisitor::visit(Manga& manga){
     manga_ = &manga;
     dvd_ = nullptr;
@@ -16,7 +21,7 @@ void EntAddVisitor::visit(Dvd& dvd){
 
 void EntAddVisitor::visit(Series& series){
     series_ = &series;
-    dvd_ = nullptr;
+    dvd_ = &series;
     manga_ = nullptr;
     videogame_ = nullptr;
 }

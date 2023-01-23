@@ -1,0 +1,59 @@
+{
+    "Menu" : [
+        {
+            "type" : "Food",
+            "name" : "",
+            "image" : "",
+            "price" : 1,
+            "gluten_free" : false
+        },
+        {
+            "type" : "Drink",
+            "name" : "",
+            "image" : "",
+            "price" : 1,
+            "format" : 0
+        }
+    ],
+    "Library" : [
+        {
+            "type" : "Manga",
+            "name" : "",
+            "image" : "",
+            "description" : "",
+            "quantity" : 1,
+            "author" : "",
+            "pages" : 1,
+            "volume" : 1,
+            "target" : 0
+        },
+        {
+            "type" : "Dvd",
+            "name" : "",
+            "image" : "",
+            "description" : "",
+            "quantity" : 1,
+            "production" : "",
+            "length" : 1
+        },
+        {
+            "type" : "Series",
+            "name" : "",
+            "image" : "",
+            "description" : "",
+            "quantity" : 1,
+            "production" : "",
+            "length" : 1,
+            "episodes" : 1
+        },
+        {
+            "type" : "Videogame",
+            "name" : "",
+            "image" : "",
+            "description" : "",
+            "quantity" : 1,
+            "company" : "",
+            "pegi" : 3
+        }
+    ]
+}

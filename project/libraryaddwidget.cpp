@@ -20,34 +20,12 @@ LibraryAddWidget::LibraryAddWidget(QWidget *parent): QWidget{parent}{
     imageLayout->addWidget(image);
     imageLayout->addWidget(browseImage);
     formLayout->addRow(tr("Image: "), imageLayout);
+    description = new QTextEdit;
+    formLayout->addRow(tr("Desription: "), description);
     quantity = new QSpinBox;
     quantity->setAlignment(Qt::AlignRight);
     quantity->setMaximum(50);
-    formLayout->addRow(tr("Price: "), quantity);
-    description = new QTextEdit;
-    formLayout->addRow(tr("Desription"), description);
-    author = new QLineEdit;
-    author->setMaxLength(100);
-    volume = new QSpinBox;
-    volume->setMaximum(200);
-    pages = new QSpinBox;
-    pages->setMaximum(1000);
-    target = new QComboBox;
-    target->addItem("Shounen");
-    target->addItem("Seinen");
-    target->addItem("Shojo");
-    target->addItem("Josei");
-    target->addItem("None");
-    production = new QLineEdit;
-    production->setMaxLength(100);
-    length = new QSpinBox;
-    length->setMaximum(210);
-    episodes = new QSpinBox;
-    episodes->setMaximum(2000);
-    company = new QLineEdit;
-    company->setMaxLength(100);
-    pegi = new QSpinBox;
-    pegi->setRange(3, 18);
+    formLayout->addRow(tr("Quantity: "), quantity);
     mangaExtraInfo();
     buttonLayout = new QHBoxLayout;
     addButton = new QPushButton("Add");
@@ -61,31 +39,57 @@ LibraryAddWidget::LibraryAddWidget(QWidget *parent): QWidget{parent}{
     connect(type, &QComboBox::currentTextChanged, this, &LibraryAddWidget::extra_info);
     connect(browseImage, &QPushButton::clicked, this, &LibraryAddWidget::browse_image);
     connect(addButton, &QPushButton::clicked, this, &LibraryAddWidget::add_item);
-    connect(cancelButton, &QPushButton::clicked, this, &LibraryAddWidget::hide);
+    connect(cancelButton, &QPushButton::clicked, [this]() {
+        // pulisco il form
+        clear_form();
+        hide();
+    });
 }
 
 void LibraryAddWidget::mangaExtraInfo(){
-    while(formLayout->rowCount() > 4) formLayout->removeRow(formLayout->rowCount() - 1);
+    while(formLayout->rowCount() > 5) formLayout->removeRow(formLayout->rowCount() - 1);
+    author = new QLineEdit;
+    author->setMaxLength(100);
     formLayout->addRow(tr("&Author: "), author);
+    volume = new QSpinBox;
+    volume->setMaximum(200);
     formLayout->addRow(tr("Volume: "), volume);
+    pages = new QSpinBox;
+    pages->setMaximum(1000);
     formLayout->addRow(tr("Pages: "), pages);
+    target = new QComboBox;
+    target->addItem("Shounen");
+    target->addItem("Seinen");
+    target->addItem("Shojo");
+    target->addItem("Josei");
+    target->addItem("None");
     formLayout->addRow(tr("Target: "), target);
 }
 
 void LibraryAddWidget::dvdExtraInfo(){
-    while(formLayout->rowCount() > 4) formLayout->removeRow(formLayout->rowCount() - 1);
+    while(formLayout->rowCount() > 5)formLayout->removeRow(formLayout->rowCount() - 1);
+    production = new QLineEdit;
+    production->setMaxLength(100);
     formLayout->addRow(tr("&Production: "), production);
+    length = new QSpinBox;
+    length->setMaximum(210);
     formLayout->addRow(tr("Length: "), length);
 }
 
 void LibraryAddWidget::seriesExtraInfo(){
     dvdExtraInfo();
+    episodes = new QSpinBox;
+    episodes->setMaximum(2000);
     formLayout->addRow(tr("Episodes"), episodes);
 }
 
 void LibraryAddWidget::videogameExtraInfo(){
-    while(formLayout->rowCount() > 4) formLayout->removeRow(formLayout->rowCount() - 1);
+    while(formLayout->rowCount() > 5) formLayout->removeRow(formLayout->rowCount() - 1);
+    company = new QLineEdit;
+    company->setMaxLength(100);
     formLayout->addRow(tr("&Company: "), company);
+    pegi = new QSpinBox;
+    pegi->setRange(3, 18);
     formLayout->addRow(tr("Pegi: "), pegi);
 }
 
@@ -121,6 +125,7 @@ void LibraryAddWidget::add_item(){
         case none: itemTarget = none; break;
         }
         Manga* manga = new Manga(itemName, itemImage, itemDescription, itemQuantity, itemAuthor, itemPages, itemVolume, itemTarget);
+        clear_form();
         this->hide();
         emit add_to_library(manga);
     }
@@ -128,6 +133,7 @@ void LibraryAddWidget::add_item(){
         std::string itemProduction = production->text().toStdString();
         unsigned int itemLength = length->value();
         Dvd* dvd = new Dvd(itemName, itemImage, itemDescription, itemQuantity, itemProduction, itemLength);
+        clear_form();
         this->hide();
         emit add_to_library(dvd);
     }else if(type->currentIndex() == 2){
@@ -135,13 +141,28 @@ void LibraryAddWidget::add_item(){
         unsigned int itemLength = length->value();
         unsigned int itemEpisodes = episodes->value();
         Series* serie = new Series(itemName, itemImage, itemDescription, itemQuantity, itemProduction, itemLength, itemEpisodes);
+        clear_form();
         this->hide();
         emit add_to_library(serie);
     }else{
         std::string itemCompany = company->text().toStdString();
         unsigned int itemPegi = pegi->value();
         Videogame* game = new Videogame(itemName, itemImage, itemDescription, itemQuantity, itemCompany, itemPegi);
+        clear_form();
         this->hide();
         emit add_to_library(game);;
     }
+}
+
+void LibraryAddWidget::clear_form(){
+    extra_info();
+    type->setCurrentIndex(0);
+    name->clear();
+    image->clear();
+    quantity->setValue(0);
+    description->clear();
+}
+
+void LibraryAddWidget::closeEvent (QCloseEvent *event){
+    clear_form();
 }

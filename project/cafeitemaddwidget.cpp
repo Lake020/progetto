@@ -38,11 +38,7 @@ CafeItemAddWidget::CafeItemAddWidget(QWidget *parent): QWidget{parent}{
     connect(addButton, &QPushButton::clicked, this, &CafeItemAddWidget::add_item);
     connect(cancelButton, &QPushButton::clicked, [=]() {
         // pulisco il form
-        type->setCurrentIndex(0);
-        name->clear();
-        image->clear();
-        price->setValue(0);
-        extra->setCurrentIndex(0);
+        clear_form();
         this->hide();
     });
 }
@@ -65,8 +61,10 @@ void CafeItemAddWidget::DrinkExtraInfo(){
 }
 
 void CafeItemAddWidget::extra_info(){
-    if(type->currentIndex() == 0) FoodExtraInfo();
-    else DrinkExtraInfo();
+    switch(type->currentIndex()){
+    case 0: FoodExtraInfo(); break;
+    case 1: DrinkExtraInfo(); break;
+    }
 }
 
 void CafeItemAddWidget::browse_image(){
@@ -81,11 +79,7 @@ void CafeItemAddWidget::add_item(){
     if(type->currentIndex() == 0){
         bool glutenItem = extra->currentText() == "Yes" ? true : false;
         Food* food = new Food(nameItem, imageItem, priceItem, glutenItem);
-        type->setCurrentIndex(0);
-        name->clear();
-        image->clear();
-        price->setValue(0);
-        extra->setCurrentIndex(0);
+        clear_form();
         this->hide();
         emit add_to_menu(food);
     }
@@ -98,20 +92,20 @@ void CafeItemAddWidget::add_item(){
         default: formatItem = medium; break;
         }
         Drink* drink = new Drink(nameItem, imageItem, priceItem, formatItem);
-        type->setCurrentIndex(0);
-        name->clear();
-        image->clear();
-        price->setValue(0);
-        extra->setCurrentIndex(0);
+        clear_form();
         this->hide();
         emit add_to_menu(drink);
     }
 }
 
-void CafeItemAddWidget::closeEvent (QCloseEvent *event){
+void CafeItemAddWidget::clear_form(){
     type->setCurrentIndex(0);
     name->clear();
     image->clear();
     price->setValue(0);
     extra->setCurrentIndex(0);
+}
+
+void CafeItemAddWidget::closeEvent (QCloseEvent *event){
+    clear_form();
 }

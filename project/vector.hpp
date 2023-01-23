@@ -58,7 +58,7 @@ Vector<T>& Vector<T>::operator=(const Vector& v){
         delete[] ptr_;
         size_ = capacity_ = v.size_;
         if(v.size_ == 0){
-            ptr_ == nullptr;
+            ptr_ = nullptr;
         }else{
             ptr_ = new T[v.size_];
             for(size_t i = 0; i < size_ ; i++) ptr_[i] = v[i];
@@ -228,21 +228,47 @@ void Vector<T>::swap(T& a, T& b){
 
 template<class T>
 template<class Predicate> void Vector<T>::sort_by(size_t first, size_t last, Predicate pred){
+
+    // /*
+    size_t i, j, min_idx;
+    // One by one move boundary of
+    // unsorted subarray
+    for (i = first; i < last-1; i++)
+    {
+
+        // Find the minimum element in
+        // unsorted array
+        min_idx = i;
+        for (j = i+1; j < last; j++)
+        if (pred(ptr_[j], ptr_[min_idx]))
+            min_idx = j;
+
+        // Swap the found minimum element
+        // with the first element
+        if(min_idx!=i)
+            swap(ptr_[min_idx], ptr_[i]);
+    }
+    // */
+
+     /*
     if(first < last){
         size_t q = partion(first, last, pred);
         sort_by(first, q-1, pred);
-        sort_by(q, last, pred);
+        sort_by(q + 1, last, pred);
     }
+     */
 }
 
+/*
 template<class T>
 template<class Predicate> size_t Vector<T>::partion(size_t first, size_t last, Predicate pred){
-    /*
+
     std::random_device r;
     std::uniform_int_distribution<int> distrib(first, last);
     size_t randpiv = distrib(r);
     swap(ptr_[last], ptr_[randpiv]);
-    */
+
+
     T pivot = ptr_[last];
     int i = first - 1;
     for(size_t j = first; j <= last-1; j++){
@@ -253,6 +279,7 @@ template<class Predicate> size_t Vector<T>::partion(size_t first, size_t last, P
     }
     swap(ptr_[i+1], ptr_[last]);
     return i+1;
-}
 
+}
+*/
 #endif

@@ -1,14 +1,16 @@
-#ifndef LIBRARYADDWIDGET_H
-#define LIBRARYADDWIDGET_H
+#ifndef LIBRARYEDITWIDGET_H
+#define LIBRARYEDITWIDGET_H
 
+#include "entertainment.h"
 #include "manga.h"
 #include "dvd.h"
 #include "series.h"
 #include "videogame.h"
-
 #include<QWidget>
+#include<QString>
 #include<QVBoxLayout>
 #include<QHBoxLayout>
+#include<QLabel>
 #include<QPushButton>
 #include<QFileDialog>
 #include<QFormLayout>
@@ -16,18 +18,18 @@
 #include<QComboBox>
 #include<QSpinBox>
 #include<QTextEdit>
-#include<QLabel>
 
-class LibraryAddWidget : public QWidget
+class LibraryEditWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit LibraryAddWidget(QWidget *parent = nullptr);
-    void closeEvent (QCloseEvent *event);
+    explicit LibraryEditWidget(Entertainment* item, QWidget *parent = nullptr);
 private:
+    Entertainment* item_;
+
     QVBoxLayout* layout;
-    QComboBox* type;
-    QFormLayout* formLayout;
+    QFormLayout*  formLayout;
+    QLabel* type;
     QLineEdit* name;
     QHBoxLayout* imageLayout;
     QLineEdit* image;
@@ -44,20 +46,20 @@ private:
     QLineEdit* company;
     QSpinBox* pegi;
     QHBoxLayout* buttonLayout;
-    QPushButton* addButton;
+    QPushButton* editButton;
     QPushButton* cancelButton;
 
     void mangaExtraInfo();
     void dvdExtraInfo();
     void seriesExtraInfo();
     void videogameExtraInfo();
-    void clear_form();
+
 signals:
-    void add_to_library(Entertainment* item);
+    void edited();
 public slots:
-    void extra_info();
     void browse_image();
-    void add_item();
+    void edit_item();
+
 };
 
-#endif // LIBRARYADDWIDGET_H
+#endif // LIBRARYEDITWIDGET_H

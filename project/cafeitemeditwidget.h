@@ -35,7 +35,6 @@ private:
     QHBoxLayout* buttonLayout;
     QPushButton* editButton;
     QPushButton* cancelButton;
-
 signals:
     void edited();
 public slots:

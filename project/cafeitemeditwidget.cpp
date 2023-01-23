@@ -28,11 +28,17 @@ CafeItemEditWidget::CafeItemEditWidget(CafeItem* item, QWidget *parent):QWidget{
     if(type->text() == "Food"){
         extra->addItem("Yes");
         extra->addItem("No");
+        extra->setCurrentIndex(static_cast<Food*>(item_)->is_gluten_free()? 0: 1);
         formLayout->addRow(tr("Gluten Free: "), extra);
     }else if(type->text() == "Drink"){
         extra->addItem("Small");
         extra->addItem("Medium");
         extra->addItem("Big");
+        switch(static_cast<Drink*>(item_)->get_format()){
+        case small: extra->setCurrentIndex(0); break;
+        case medium: extra->setCurrentIndex(1); break;
+        case big: extra->setCurrentIndex(2); break;
+        }
         formLayout->addRow(tr("Format : "), extra);
     }
     buttonLayout = new QHBoxLayout;
@@ -63,8 +69,9 @@ void CafeItemEditWidget::edit_item(){
         }
         static_cast<Drink*>(item_)->set_format(itemFormat);
     }
+    emit edited();
     this->hide();
-    //emit edited();
+
 }
 
 void CafeItemEditWidget::browse_image(){

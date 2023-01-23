@@ -20,12 +20,15 @@ int main(int argc, char *argv[]){
     Food* donut = new Food("donut", "/home/leonardo/Downloads/lul.png", 7.0);
     Food* ap = new Food("ap", "/home/leonardo/Downloads/lul.png", 1.2);
     Drink* coca = new Drink("coca", "/home/leonardo/Downloads/lul.png", 2.6);
-
+    Drink* ac = new Drink("ac", "/home/leonardo/Downloads/lul.png", 4.2);
     d.add(coca);
     d.add(banana);
     d.add(ap);
     d.add(donut);
     d.add(apple);
+    d.add(ac);
+    //d.sort();
+    //std::cout << d;
 
     Library l;
     Manga* haikyu = new Manga("haikyu", "haikyu.png", "pallavolo" ,2, "bo", 134, 1, shounen);

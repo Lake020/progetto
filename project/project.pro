@@ -22,9 +22,12 @@ SOURCES += \
     entaddvisitor.cpp \
     entinfovisitor.cpp \
     entertainment.cpp \
+    entwidgetvisitor.cpp \
     food.cpp \
     library.cpp \
     libraryaddwidget.cpp \
+    libraryeditwidget.cpp \
+    libraryinfowidget.cpp \
     main.cpp \
     mainwindow.cpp \
     manga.cpp \
@@ -51,9 +54,12 @@ HEADERS += \
     entaddvisitor.h \
     entinfovisitor.h \
     entvisitor.h \
+    entwidgetvisitor.h \
     food.h \
     library.h \
     libraryaddwidget.h \
+    libraryeditwidget.h \
+    libraryinfowidget.h \
     mainwindow.h \
     manga.h \
     menu.h \
