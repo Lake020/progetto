@@ -1,59 +1,178 @@
 {
-    "Menu" : [
+    "Library": [
         {
-            "type" : "Food",
-            "name" : "",
-            "image" : "",
-            "price" : 1,
-            "gluten_free" : false
+            "author": "Kentarō Miura",
+            "description": "Berserk è la storia di Gatsu, un trovatello che viene allevato da un condottiero di ventura. iniziato alle arti militari già a 6 anni diviene ben presto un guerriero molto forte che, nonostante proposte di carriera molto “allettanti” che lo porterebbero a non vivere più il terrore della morte, sogno di ogni poveretto che disgraziatamente si guadagna da vivere come mercenario, decide di vagare di battaglia in battaglia. Si unisce ad un gruppo mercenario capitanato da un ragazzo di non nobili origini, Grifis, che lo sconfigge in duello conquistando così la sua vita (“tu mi appartieni, deciderò io quando morirai”)... ",
+            "image": ":/assests/berserk1.jpg",
+            "name": "Berserk",
+            "pages": 224,
+            "quantity": 4,
+            "target": 1,
+            "type": "Manga",
+            "volume": 1
         },
         {
-            "type" : "Drink",
-            "name" : "",
-            "image" : "",
-            "price" : 1,
-            "format" : 0
+            "author": "CLAMP",
+            "description": "Sakura Kinomoto è una vivace ragazzina che frequenta la quarta elementare a cui è stato affidato un difficile compito: deve recuperare alcune carte create da un potentissimo mago, ora disperse per la città, servendosi di speciali poteri magici e dell’aiuto di Kerberos, il custode del libro in cui queste erano sigillate. La rottura del sigillo, tuttavia, ha scatenato una maledizione che rischia di portare il mondo intero alla rovina...",
+            "image": ":/assests/cardcaptor_sakura1.jpg",
+            "name": "Cardcaptor Sakura",
+            "pages": 252,
+            "quantity": 2,
+            "target": 2,
+            "type": "Manga",
+            "volume": 1
+        },
+        {
+            "company": "Spike",
+            "description": "L'accademia Hope's Peak è la sede dei migliori e più brillanti studenti liceali del Giappone, i fari della speranza per il futuro. Ma quella speranza improvvisamente scompare quando Makoto Naegi e i suoi compagni di classe si trovano imprigionati a scuola, tagliati fuori dal resto del mondo e vittime dei capricci di uno strano orsetto assassino di nome Monokuma. Mette gli studenti uno contro l'altro, promettendo la libertà a chiunque riesca a uccidere un compagno di classe e farla franca. \nSta a te scoprire chi sia in realtà Monokuma, e perché sei stato preso dal mondo che una volta conoscevi. Ma attento a quel che desideri: a volte non c'è niente di più mortale della verità...",
+            "image": ":/assests/danganronpa.jpg",
+            "name": "Danganronpa: Trigger Happy Havoc",
+            "pegi": 16,
+            "quantity": 2,
+            "type": "Videogame"
+        },
+        {
+            "author": "Tsugumi Ohba, Takeshi Obata",
+            "description": "Light Yagami è un geniale quanto cinico liceale diciassettenne. La vita lo tedia e il mondo, con la sua ingiustizia, lo disgusta profondamente. Ryuk è un dio della morte, che come tutti i suoi “colleghi” conduce da tempo immemorabile un’esistenza vuota e minata dalla noia. In cerca di distrazioni, Ryuk decide di abbandonare nel mondo degli uomini il suo Quaderno Della Morte, all’apparenza un semplice block notes, ma dotato di un tremendo potere, perché scrivere il nome di una persona sul Quaderno significa decretarne la morte. Dopo aver per caso trovato il Quaderno Della Morte, e averne compreso le potenzialità, Light decide di servirsene per cambiare il mondo, mentre Ryuk lo osserva divertito.",
+            "image": ":/assests/death_note1.jpg",
+            "name": "Death Note",
+            "pages": 200,
+            "quantity": 1,
+            "target": 1,
+            "type": "Manga",
+            "volume": 1
+        },
+        {
+            "company": "Team Salvato",
+            "description": "HI, Monika here!\nWelcome to the Literature Club! It's always been a dream of mine to make something special out of the things I love. Now that you're a club member, you can help me make that dream come true in this cute game!\n\nEvery day is full of chit-chat and fun activities with all of my adorable and unique club members:\n\nSayori, the youthful bundle of sunshine who values happiness the most;\nNatsuki, the deceivingly cute girl who packs an assertive punch;\nYuri, the timid and mysterious one who finds comfort in the world of books;\n...And, of course, Monika, the leader of the club! That's me!\n\nI'm super excited for you to make friends with everyone and help the Literature Club become a more intimate place for all my members. But I can tell already that you're a sweetheart—will you promise to spend the most time with me? ♥",
+            "image": ":/assests/doki_doki_literature_club.jpg",
+            "name": "Doki Doki Literature Club",
+            "pegi": 18,
+            "quantity": 4,
+            "type": "Videogame"
+        },
+        {
+            "author": "Akira  Toriyama",
+            "description": "Goku è un bambino fuori dal comune, ha un forza straordinaria ed una lunga coda da scimmia. Il nostro eroe è orfano e non ha mai conosciuto i suoi genitori, ha sempre vissuto con il nonno. Inizia la nostra storia, Goku ormai solo, custodisce gelosamente l’unico ricordo del nonno recentemente morto, una sfera sulla quale sono disegnate quattro stelle. La vita di Goku cambia quando una ragazza di nome Bulma gli chiede di aiutarlo a ritrovare le sette sfere del drago (quando le sette sfere si riuniscono appare un drago che esaudirà qualsiasi desiderio), una delle quali è proprio il ricordo del nonno, la quarta sfera. Il nostro protagonista accetta di aiutare Bulma, e l’epopea di Dragonball ha inizio…",
+            "image": ":/assests/dragonball1.jpg",
+            "name": "Drangon Ball",
+            "pages": 192,
+            "quantity": 5,
+            "target": 0,
+            "type": "Manga",
+            "volume": 1
+        },
+        {
+            "company": "Type-Moon",
+            "description": "Fuyuki City. Da secoli questa città giapponese viene utilizzata per un conflitto fra magi, ovvero esperti praticanti di magia. Ogni magus, conosciuto come Master (padrone), è in grado di richiamare un Servant (servitore), una creatura mitologica proveniente da qualsiasi epoca, pronta a servirlo ed ottenere insieme a lui il premio della guerra: il Sacro Graal, un oggetto capace di realizzare ogni desiderio. L’unico modo per ottenerlo è di eliminare ogni altra fazione presente e vincere la guerra.",
+            "image": ":/assests/fate_stay_night.jpg",
+            "name": "Fate/stay night",
+            "pegi": 18,
+            "quantity": 2,
+            "type": "Videogame"
+        },
+        {
+            "author": "Yoshihiro Togashi",
+            "description": "Gon Freecs è un bambino prodigio dell'isola Balena (isola Kujira) che vive con la nonna e la zia. E' in grado di fare amicizia con tutti gli animali, compresi i più pericolosi, e il suo sogno è quello di diventare cacciatore (hunter), lo stesso lavoro del padre che lo ha abbandonato ancora in fasce. L'esame per diventare cacciatore è severissimo: solo 1 su 10.000 riesce anche solo a raggiungere la sede dell'esame, e dopo varie prove il numero degli ammessi è quasi sempre a una sola cifra. Il motivo per cui Gon vuole diventare cacciatore è duplice: primo ritrovare suo padre, secondo scoprire la bellezza di questo lavoro che ha spinto il padre ad abbandonare suo figlio per non doverlo interrompere. La storia inizia con Gon che riesce a convincere la zia a iscriverlo al pericoloso esame e che lascia l'Isola Balena. ",
+            "image": ":/assests/hunter_x_hunter1.jpg",
+            "name": "Hunter x Hunetr",
+            "pages": 184,
+            "quantity": 4,
+            "target": 0,
+            "type": "Manga",
+            "volume": 1
+        },
+        {
+            "description": "Sophie è una ragazza che lavora in un negozio che confeziona enormi e variopinti cappelli. Un giorno, viene tratta in salvo da uno strano personaggio, inseguito da delle strane figure che, vedendoli assieme, si mettono ad inseguire entrambi. Scampato il pericolo, Sophie ritorna nel negozio, ma viene raggiunta da una donna. Questa donna è nientedimeno che la Strega delle Ande, che le lancia una maledizione... Sophie è costretta a mettersi in viaggio per cercare di rompere l'incantesimo e trovare il mago che ha dato inizio a tutti i suoi guai.",
+            "image": ":/assests/castello_errante_di_howl.jpg",
+            "length": 119,
+            "name": "Il Castello Errante di Howl",
+            "production": "Studio Ghibli, Hayao Miyazaki",
+            "quantity": 2,
+            "type": "Dvd"
+        },
+        {
+            "description": "Cihiro è una bambina di 10 anni; i suoi genitori si stanno trasferendo in una nuova città quando, a pochi minuti dall’arrivo, si ritrovano nel mezzo del bosco davanti a uno strano edificio. Incuriosito, il padre di Chihiro scende dall’auto e insiste per dare un’occhiata. La bambina, inizialmente contraria, si affretta a raggiungerli, intimorita dal rimanere da sola in macchina ad aspettarli. Attraversano il curioso edificio e, una volta dall’altra parte, si ritrovano in un ampio prato. Da lì, raggiungono un curioso villaggio…",
+            "image": ":/assests/la_citta_incantata.jpg",
+            "length": 125,
+            "name": "La città incantata",
+            "production": "Studio Ghibli, Hayao Miyazaki",
+            "quantity": 3,
+            "type": "Dvd"
+        },
+        {
+            "author": "Masashi Kishimoto",
+            "description": "Orfano dalla nascita, Naruto Uzumaki è un ninja del Villaggio della Foglia, a cui piace fare dispetti in giro per attirare l'attenzione. Sebbene abbia solo dodici anni, già sogna di diventare un Hokage, ossia il ninja a capo del villaggio. Da sempre bambino emarginato, Naruto scopre quasi per caso la ragione per la quale tutti lo tengono a distanza: dentro di lui è sigillato lo spirito della Volpe a Nove Code, un gigantesco demone sovrannaturale che anni addietro aveva raso al suolo la Foglia. Dopo essere entrato all'Accademia ninja, Naruto viene inserito nel gruppo 7, composto da Sasuke Uchiha e Sakura Haruno, e guidato dal maestro Kakashi Hatake. Fra molteplici avventure in paesi dalle diverse culture e combattimenti avvincenti contro avversari pericolosi, inizia per Naruto un viaggio alla scoperta di se stesso, delle sue origini, del valore dell'amicizia e dell'onore di essere ninja. ",
+            "image": ":/assests/naruto1.jpg",
+            "name": "Naruto",
+            "pages": 192,
+            "quantity": 4,
+            "target": 0,
+            "type": "Manga",
+            "volume": 1
+        },
+        {
+            "company": "Square Enix, PlatinumGames Inc.",
+            "description": "NieR: Automata narra la storia degli androidi 2B, 9S e A2 e della loro accanita battaglia per la riconquista di un mondo distopico governato dalle macchine e ora invaso da potenti biomacchine.\n\nDelle biomacchine hanno invaso la Terra, obbligando l'umanità ad abbandonarla. In un ultimo sforzo per riprendersi il pianeta e annientare gli invasori, gli umani organizzano una resistenza formata da androidi-soldato. Ora sul pianeta infuria una guerra tra macchine e androidi... una guerra che presto porterà a galla la verità su questo mondo.",
+            "image": ":/assests/nier_automata.jpg",
+            "name": "Nier:Automata",
+            "pegi": 18,
+            "quantity": 2,
+            "type": "Videogame"
+        },
+        {
+            "author": "Eiichirō Oda",
+            "description": "Monkey D. Rufy è un giovane pirata sognatore che da piccolo ha inavvertitamente mangiato il frutto del diavolo Gom Gom che lo rende \"elastico\", permettendogli di allungarsi e deformarsi a piacimento, a scapito, però, della capacità di nuotare. L'obiettivo che lo ha spinto in mare è quello ambizioso di diventare il \"re dei pirati\". Dovrà, dunque, ritrovare il leggendario \"One Piece\", il magnifico tesoro lasciato dal mitico pirata Gold Roger sull'isola di Raftel, alla fine della Rotta Maggiore, mai ritrovato e sogno di ogni pirata.\nNella sua avventura, Rufy riunirà intorno a lui una ciurma ben assortita, e si troverà in mezzo a situazioni bizzarre e stravaganti, tanto almeno quanto lo sono i personaggi, amici o nemici, presenti nell'universo che lo circonda, che raggiungono spesso livelli assurdi e grotteschi e che donano all'opera un'atmosfera surreale e divertente.",
+            "image": ":/assests/one_piece_1.jpg",
+            "name": "One Piece",
+            "pages": 208,
+            "quantity": 5,
+            "target": 0,
+            "type": "Manga",
+            "volume": 1
+        },
+        {
+            "description": "Siamo nell'Italia degli anni '20. Marco Pagot è un ex-pilota che, sopravvissuto alla Grande Guerra, si è misteriosamente trovato con le sembianze di un maiale. Ora si guadagna da vivere dando la caccia ai pirati che spadroneggiano sui cieli dell'Adriatico ed è diventato famoso con il nome di battaglia di Porco Rosso. Ma i pirati del cielo, stanchi delle sue intrusioni, hanno ingaggiato il pilota americano Curtis, il quale che vuole farsi un nome abbattendo il suo temuto idrovolante rosso. A causa di una serie di circostanze fortunate Curtis riesce nel suo intento, abbattendo Marco e costringendolo ad un atterraggio di fortuna. Per riparare il suo povero idrovolante, Marco lo porta a Milano, presso la ditta del suo amico Piccolo, dove fa la conoscenza della giovane Fio che, nonostante i suoi diciassette anni, è un genio nella progettazione degli aerei e si propone per riprogettare i suo idrovolante. Ma in questa città Porco Rosso non ha vita facile. Per troppo tempo ha manifestato apertamente la sua contrarietà al regime fascista ed ora è diventato un ricercato. Costretto ad una rocambolesca fuga, durante la quale si deve portare dietro anche Fio, fa ritorno sull'Adriatico dove dovrà vedersela con Curtis e con i pirati dell'aria che lo stanno aspettando per regolare i conti in sospeso.",
+            "image": ":/assests/porco_rosso.jpg",
+            "length": 92,
+            "name": "Porco Rosso",
+            "production": "Studio Ghibli, Hayao Miyazaki",
+            "quantity": 1,
+            "type": "Dvd"
+        },
+        {
+            "company": "tobyfox",
+            "description": "Welcome to UNDERTALE. In this RPG, you control a human who falls underground into the world of monsters. Now you must find your way out... or stay trapped forever.",
+            "image": ":/assests/undertale.jpg",
+            "name": "Undertale",
+            "pegi": 12,
+            "quantity": 3,
+            "type": "Videogame"
+        },
+        {
+            "description": "Mitsuha è una studentessa delle superiori che vive in una cittadina rurale immersa nel profondo delle montagne. Vive con la sorellina e la nonna, mentre suo padre, il sindaco del paesino, non sta a casa quasi mai. Mitsuha non ama il posto dove vive e anela il meraviglioso stile di vita di Tokyo. Taki, invece, è uno studente che vive nel centro di Tokyo che passa il tempo con i suoi amici, lavora part-time in un ristorante italiano e si interessa di architettura e belle arti. Un giorno, Mitsuha ha un sogno in cui lei è un giovane uomo. Anche Taki ha un sogno in cui è uno studente di liceo femminile in un paese di montagna che non ha mai visitato. Qual è il segreto che si cela dietro questi sogni? ",
+            "image": ":/assests/your_name.jpg",
+            "length": 107,
+            "name": "Your Name",
+            "production": "Makoto Shinkai",
+            "quantity": 3,
+            "type": "Dvd"
         }
     ],
-    "Library" : [
+    "Menu": [
         {
-            "type" : "Manga",
-            "name" : "",
-            "image" : "",
-            "description" : "",
-            "quantity" : 1,
-            "author" : "",
-            "pages" : 1,
-            "volume" : 1,
-            "target" : 0
+            "gluten_free": false,
+            "image": "",
+            "name": "",
+            "price": 1,
+            "type": "Food"
         },
         {
-            "type" : "Dvd",
-            "name" : "",
-            "image" : "",
-            "description" : "",
-            "quantity" : 1,
-            "production" : "",
-            "length" : 1
-        },
-        {
-            "type" : "Series",
-            "name" : "",
-            "image" : "",
-            "description" : "",
-            "quantity" : 1,
-            "production" : "",
-            "length" : 1,
-            "episodes" : 1
-        },
-        {
-            "type" : "Videogame",
-            "name" : "",
-            "image" : "",
-            "description" : "",
-            "quantity" : 1,
-            "company" : "",
-            "pegi" : 3
+            "format": 0,
+            "image": "",
+            "name": "",
+            "price": 1,
+            "type": "Drink"
         }
     ]
 }

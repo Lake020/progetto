@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assests/berserk1.jpg</file>
+        <file>assests/cardcaptor_sakura1.jpg</file>
+        <file>assests/castello_errante_di_howl.jpg</file>
+        <file>assests/danganronpa.jpg</file>
+        <file>assests/death_note1.jpg</file>
+        <file>assests/doki_doki_literature_club.jpg</file>
+        <file>assests/dragonball1.jpg</file>
+        <file>assests/fate_stay_night.jpg</file>
+        <file>assests/hunter_x_hunter1.jpg</file>
+        <file>assests/il_mio_vicino_totoro.jpg</file>
+        <file>assests/la_citta_incantata.jpg</file>
+        <file>assests/naruto1.jpg</file>
+        <file>assests/nier_automata.jpg</file>
+        <file>assests/one_piece_1.jpg</file>
+        <file>assests/porco_rosso.jpg</file>
+        <file>assests/undertale.jpg</file>
+        <file>assests/your_name.jpg</file>
+    </qresource>
+</RCC>

@@ -51,7 +51,7 @@ int main(int argc, char *argv[]){
     l.add(osu);
 
     QApplication a(argc, argv);
-    MainWindow w(d, l);
+    MainWindow w;
     w.show();
     return a.exec();
 }
