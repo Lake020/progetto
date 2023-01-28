@@ -53,6 +53,7 @@ void CafeItemAddWidget::FoodExtraInfo(){
 
 void CafeItemAddWidget::DrinkExtraInfo(){
     extra = new QComboBox;
+    extra->addItem("Unique");
     extra->addItem("Small");
     extra->addItem("Medium");
     extra->addItem("Big");
@@ -69,8 +70,6 @@ void CafeItemAddWidget::extra_info(){
 
 void CafeItemAddWidget::browse_image(){
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Image"), "/home/", tr("Image Files (*.png *.jpg *.bmp)"));
-    QDir dir = QCoreApplication::applicationDirPath();
-    fileName = dir.relativeFilePath(fileName);
     image->setText(fileName);
 }
 
@@ -88,9 +87,10 @@ void CafeItemAddWidget::add_item(){
     else{
         enum size formatItem;
         switch(extra->currentIndex()){
-        case 0: formatItem = small; break;
-        case 1: formatItem = medium; break;
-        case 2: formatItem = big; break;
+        case 0: formatItem = unique; break;
+        case 1: formatItem = small; break;
+        case 2: formatItem = medium; break;
+        case 3: formatItem = big; break;
         default: formatItem = medium; break;
         }
         Drink* drink = new Drink(nameItem, imageItem, priceItem, formatItem);

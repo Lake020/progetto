@@ -50,6 +50,7 @@ void CafeWidgetVisitor::visit(Drink& drink){
     formLayout->addRow("Price: ", price);
     QLabel* format;
     switch(drink.get_format()){
+    case unique: format = new QLabel("Unique"); break;
     case small: format = new QLabel("Small"); break;
     case medium: format = new QLabel("Medium"); break;
     case big: format = new QLabel("Big"); break;

@@ -144,7 +144,5 @@ void LibraryEditWidget::edit_item(){
 
 void LibraryEditWidget::browse_image(){
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Image"), "/home/", tr("Image Files (*.png *.jpg *.bmp)"));
-    QDir dir = QCoreApplication::applicationDirPath();
-    fileName = dir.relativeFilePath(fileName);
     image->setText(fileName);
 }

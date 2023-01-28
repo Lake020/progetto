@@ -5,22 +5,24 @@
 #include "cafeitem.h"
 #include "entertainment.h"
 
-template<class T>
+class CompareNameMenu{
+public:
+    bool operator()(CafeItem*& v1, CafeItem*& v2) const;
+};
+
 class ComparePrice{
 public:
-    bool operator()(const T& v1, const T& v2) const;
+    bool operator()(CafeItem*& v1, CafeItem*& v2) const;
 };
 
-template<class T>
-class CompareName{
+class CompareNameLibrary{
 public:
-    bool operator()(const T& v1, const T& v2) const;
+    bool operator()(Entertainment*& v1, Entertainment*& v2) const;
 };
 
-template<class T>
 class CompareQuantity{
 public:
-    bool operator()(const T& v1, const T& v2) const;
+    bool operator()(Entertainment*& v1, Entertainment*& v2) const;
 };
 
 class CompareAuthor{
@@ -68,5 +70,4 @@ public:
     bool operator()(Entertainment*& v1, Entertainment*& v2) const;
 };
 
-#include "compare.hpp"
 #endif // COMPARE_H

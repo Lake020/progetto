@@ -13,20 +13,18 @@
 
 bool search_string(const std::string& s1, const std::string& s2);
 
-template<class T>
-class SearchName{
+class SearchNameMenu{
 public:
-    SearchName(const std::string& s);
-    bool operator()(const T& v) const;
+    SearchNameMenu(const std::string& s);
+    bool operator()(CafeItem*& v) const;
 private:
     std::string s1;
 };
 
-template<class T>
 class SearchPrice{
 public:
     SearchPrice(double price);
-    bool operator()(const T& v) const;
+    bool operator()(CafeItem*& v) const;
 private:
     double price_;
 };
@@ -39,20 +37,26 @@ private:
     bool value;
 };
 
-template<class T>
+class SearchNameLibrary{
+public:
+    SearchNameLibrary(const std::string& s);
+    bool operator()(Entertainment*& v) const;
+private:
+    std::string s1;
+};
+
 class SearchQuantity{
 public:
     SearchQuantity(unsigned int quantity);
-    bool operator()(const T& v) const;
+    bool operator()(Entertainment*& v) const;
 private:
     unsigned int quantity_;
 };
 
-template<class T>
 class SearchDescription{
 public:
     SearchDescription(const std::string& s);
-    bool operator()(const T& v) const;
+    bool operator()(Entertainment*& v) const;
 private:
     std::string s1;
 };
@@ -129,5 +133,4 @@ private:
     unsigned int pegi_;
 };
 
-#include "search.hpp"
 #endif

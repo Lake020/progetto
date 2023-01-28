@@ -37,28 +37,28 @@ void Library::clear(){
 }
 
 void Library::sort(){
-    CompareName<const Entertainment*> pred;
+    CompareNameLibrary pred;
     items_.sort_by(0, get_size(), pred);
 }
 
 void Library::sort_by_quantity(){
-    CompareQuantity<Entertainment*> pred;
+    CompareQuantity pred;
     items_.sort_by(0, get_size(), pred);
 }
 
 
 Library Library::search_by_name(const std::string& name) const{
-    SearchName<Entertainment*> pred(name);
+    SearchNameLibrary pred(name);
     return search(pred);
 }
 
 Library Library::search_by_quantity(unsigned int quantity) const{
-    SearchQuantity<Entertainment*> pred(quantity);
+    SearchQuantity pred(quantity);
     return search(pred);
 }
 
 Library Library::search_by_description(const std::string& description) const{
-    SearchDescription<Entertainment*> pred(description);
+    SearchDescription pred(description);
     return search(pred);
 }
 

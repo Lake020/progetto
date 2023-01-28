@@ -31,13 +31,15 @@ CafeItemEditWidget::CafeItemEditWidget(CafeItem* item, QWidget *parent):QWidget{
         extra->setCurrentIndex(static_cast<Food*>(item_)->is_gluten_free()? 0: 1);
         formLayout->addRow(tr("Gluten Free: "), extra);
     }else if(type->text() == "Drink"){
+        extra->addItem("Unique");
         extra->addItem("Small");
         extra->addItem("Medium");
         extra->addItem("Big");
         switch(static_cast<Drink*>(item_)->get_format()){
-        case small: extra->setCurrentIndex(0); break;
-        case medium: extra->setCurrentIndex(1); break;
-        case big: extra->setCurrentIndex(2); break;
+        case unique: extra->setCurrentIndex(0); break;
+        case small: extra->setCurrentIndex(1); break;
+        case medium: extra->setCurrentIndex(2); break;
+        case big: extra->setCurrentIndex(3); break;
         }
         formLayout->addRow(tr("Format : "), extra);
     }
@@ -63,9 +65,10 @@ void CafeItemEditWidget::edit_item(){
     }else if(dynamic_cast<Drink*>(item_)){
         enum size itemFormat;
         switch(extra->currentIndex()){
-        case 0: itemFormat = small; break;
-        case 1: itemFormat = medium; break;
-        case 2: itemFormat = big; break;
+        case 0: itemFormat = unique; break;
+        case 1: itemFormat = small; break;
+        case 2: itemFormat = medium; break;
+        case 3: itemFormat = big; break;
         }
         static_cast<Drink*>(item_)->set_format(itemFormat);
     }
@@ -76,7 +79,5 @@ void CafeItemEditWidget::edit_item(){
 
 void CafeItemEditWidget::browse_image(){
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Image"), "/home/", tr("Image Files (*.png *.jpg *.bmp)"));
-    QDir dir = QCoreApplication::applicationDirPath();
-    fileName = dir.relativeFilePath(fileName);
     image->setText(fileName);
 }

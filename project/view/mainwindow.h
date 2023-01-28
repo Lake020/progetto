@@ -38,6 +38,7 @@ class MainWindow : public QWidget{
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    void closeEvent (QCloseEvent *event);
 public slots:
     void create_new_file();
     void open_file();

@@ -268,7 +268,10 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     connect(saveFile, &QAction::triggered, this, &MainWindow::save_file);
     connect(saveFileAs, &QAction::triggered, this, &MainWindow::save_file_as);
     connect(closeFile, &QAction::triggered, this, &MainWindow::close_file);
-    connect(exit, &QAction::triggered, this, &MainWindow::close);
+    connect(exit, &QAction::triggered, [this] (){
+        this->close_file();
+        this->close();
+    });
 
     connect(addMenuButton, &QPushButton::clicked, this, &MainWindow::add_menu);
     connect(menuAddWidget, &CafeItemAddWidget::add_to_menu, this, &MainWindow::add_cafe_item);
@@ -708,6 +711,7 @@ void MainWindow::fill_drinkTable(QTableWidget* table, const Menu& menu){
         table->setItem(i, 1, itemPrice);
         QString format = "";
         switch(visitor.get_format()){
+        case unique: format = "Unique"; break;
         case small: format = "Small"; break;
         case medium: format = "Medium"; break;
         case big: format = "Big"; break;
@@ -894,6 +898,7 @@ void MainWindow::open_file(){
             }else if(type == "Drink"){
                 enum size format;
                 switch(obj["format"].toInt()){
+                case unique: format = unique; break;
                 case small: format = small; break;
                 case medium: format = medium; break;
                 case big: format = big; break;
@@ -1128,4 +1133,8 @@ void MainWindow::close_file(){
     library_.clear();
     update_menu_tables();
     update_library_tables();
+}
+
+void MainWindow::closeEvent (QCloseEvent *event){
+    close_file();
 }

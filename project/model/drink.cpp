@@ -8,7 +8,7 @@ enum size Drink::get_format() const{
 }
 
 void Drink::set_format(enum size format){
-    if(format>2 || format<0) format_ = medium;
+    if(format>3 || format<0) format_ = unique;
     else format_ = format;
 }
 

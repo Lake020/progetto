@@ -46,7 +46,6 @@ HEADERS += \
     model/cafeitem.h \
     view/cafewidgetvisitor.h \
     model/compare.h \
-    model/compare.hpp \
     model/drink.h \
     model/dvd.h \
     model/entertainment.h \
@@ -63,7 +62,6 @@ HEADERS += \
     model/manga.h \
     model/menu.h \
     model/search.h \
-    model/search.hpp \
     model/series.h \
     model/vector.h \
     model/vector.hpp \
