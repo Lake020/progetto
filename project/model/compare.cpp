@@ -10,6 +10,14 @@ bool ComparePrice::operator()(CafeItem*& v1, CafeItem*& v2) const{
     return v1->get_price() <= v2->get_price();
 }
 
+bool CompareFormat::operator()(CafeItem*& v1, CafeItem*& v2) const{
+    CafeInfoVisitor visitor1;
+    CafeInfoVisitor visitor2;
+    v1->accept(visitor1);
+    v2->accept(visitor2);
+    return visitor1.get_format() <= visitor2.get_format();
+}
+
 bool CompareNameLibrary::operator()(Entertainment*& v1, Entertainment*& v2) const{
     return v1->get_name() <= v2->get_name();
 }

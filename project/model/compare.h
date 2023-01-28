@@ -15,6 +15,11 @@ public:
     bool operator()(CafeItem*& v1, CafeItem*& v2) const;
 };
 
+class CompareFormat{
+public:
+    bool operator()(CafeItem*& v1, CafeItem*& v2) const;
+};
+
 class CompareNameLibrary{
 public:
     bool operator()(Entertainment*& v1, Entertainment*& v2) const;

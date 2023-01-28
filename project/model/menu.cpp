@@ -91,9 +91,7 @@ Menu Menu::only_drink() const{
     return tmp;
 }
 
-std::ostream& operator<<(std::ostream& os, const Menu& v){
-    for(size_t i = 0; i < v.get_size(); i++){
-        os << i+1 << " item is " << *v.items_[i] << std::endl;
-    }
-    return os;
+void Menu::sort_by_format(){
+    CompareFormat pred;
+    items_.sort_by(0, get_size(), pred);
 }

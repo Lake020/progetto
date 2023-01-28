@@ -39,10 +39,3 @@ void Manga::set_target(Target target){
 void Manga::accept(EntVisitor& visitor){
     visitor.visit(*this);
 }
-
-std::ostream& operator<<(std::ostream& os, const Manga& v){
-    return os << "title: " << v.get_name() << " image: " << v.get_image() 
-              << " description: " << v.get_description() << " quantity: " << v.get_quantity() 
-              << " author: " << v.author_ << " pages: " << v.pages_ 
-              << " volume: " << v.volume_ << " target: " << v.target_;
-}

@@ -39,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
 
     QTabWidget* mainTab = new QTabWidget;
 
+    mainTab->setStyleSheet("background-color: rgb(202, 240, 248)");
+
     QWidget* menuWidget = new QWidget;
     QVBoxLayout* menuWidgetLayout = new QVBoxLayout;
     menuWidget->setLayout(menuWidgetLayout);
@@ -143,13 +145,22 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     QWidget* libraryWidget = new QWidget;
     QVBoxLayout* libraryWidgetLayout = new QVBoxLayout;
     libraryWidget->setLayout(libraryWidgetLayout);
-
     QHBoxLayout* libraryControlsLayout = new QHBoxLayout;
     QGroupBox* libraryButtonBox = new QGroupBox("Edit");
+    libraryButtonBox->setStyleSheet("font: bold");
     QHBoxLayout* libraryButtonLayout = new QHBoxLayout;
     QPushButton* addLibraryButton = new QPushButton("Add");
+    addLibraryButton->setStyleSheet("QPushButton::hover{ background-color: rgb(144, 224, 239)}\
+                                     QPushButton{background-color: rgb(173, 232, 244); \
+                                                 font-weight: normal}");
     QPushButton* editLibraryButton = new QPushButton("Edit");
+    editLibraryButton->setStyleSheet("QPushButton::hover{ background-color: rgb(144, 224, 239)}\
+                                     QPushButton{background-color: rgb(173, 232, 244);\
+                                                 font-weight: normal}");
     QPushButton* deleteLibraryButton = new QPushButton("Delete");
+    deleteLibraryButton->setStyleSheet("QPushButton::hover{ background-color: rgb(144, 224, 239)}\
+                                       QPushButton{background-color: rgb(173, 232, 244);\
+                                                   font-weight: normal}");
     libraryButtonLayout->addWidget(addLibraryButton);
     libraryButtonLayout->addWidget(editLibraryButton);
     libraryButtonLayout->addWidget(deleteLibraryButton);
@@ -157,12 +168,17 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     libraryControlsLayout->addWidget(libraryButtonBox);
 
     QGroupBox* librarySearchBox = new QGroupBox("Search");
+    librarySearchBox->setStyleSheet("font: bold");
     QHBoxLayout* librarySearchLayout = new QHBoxLayout;
     librarySearch = new QLineEdit;
+    librarySearch->setStyleSheet("background-color: white; font-weight: normal");
     QGridLayout* librarySearchOptionLayout = new QGridLayout;
     QCheckBox* librarySearchName = new QCheckBox("Name");
+    librarySearchName->setStyleSheet("font-weight: normal");
     QCheckBox* librarySearchQuantity = new QCheckBox("Quantity");
+    librarySearchQuantity->setStyleSheet("font-weight: normal");
     QCheckBox* librarySearchDescription = new QCheckBox("Description");
+    librarySearchDescription->setStyleSheet("font-weight: normal");
     QButtonGroup* librarySearchOptionGroup = new QButtonGroup;
     librarySearchOptionGroup->addButton(librarySearchName);
     librarySearchOptionGroup->addButton(librarySearchQuantity);
@@ -178,23 +194,34 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     libraryWidgetLayout->addLayout(libraryControlsLayout);
 
     libraryTab = new QTabWidget;
+    libraryTab->setStyleSheet("QTabBar::tab{background-color: rgb(0, 119, 182); \
+                                            border: 1px solid  rgb(2, 62, 138); \
+                                            border-bottom-color: rgb(2, 62, 138); \
+                                            border-top-left-radius: 4px; \
+                                            border-top-right-radius: 4px; \
+                                            min-width: 7ex;\
+                                            padding: 2px;\
+                                            color: white; font-weight: 600}\
+                               QTabBar::tab::selected, QTabBar::tab::hover{background-color: rgb(2, 62, 138)}\
+                               QTabBar::tab::selected{margin-top: 2px;};");
     libraryTable = new QTableWidget;
     QStringList headerLibraryTable;
     headerLibraryTable << "Name" << "Quantity" << "Description";
     libraryTable->setColumnCount(3);
     libraryTable->setHorizontalHeaderLabels(headerLibraryTable);
-    libraryTable->horizontalHeader()->setStyleSheet("font-weight: bold");
+    libraryTable->horizontalHeader()->setStyleSheet("QHeaderView::section{background-color: rgb(0, 150, 199);\
+                                                                          color: white; font: bold}");
     libraryTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     libraryTable->verticalHeader()->hide();
     libraryTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     libraryTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    libraryTable->setStyleSheet("background-color: rgb(133, 228, 255); alternate-background-color: rgb(214, 246, 255); selection-background-color: rgb(253, 230, 53)");
     libraryTable->setAlternatingRowColors(true);
     libraryTable->setSortingEnabled(false);
     libraryTable->resizeRowsToContents();
     libraryTable->horizontalHeader()->setSectionsClickable(true);
     libraryTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
     libraryTable->setFocusPolicy(Qt::NoFocus);
-
     fill_libraryTable(library_);
     libraryTab->addTab(libraryTable, "All");
 
@@ -574,7 +601,7 @@ void MainWindow::menu_sort(int index){
     if(index == 0) menu_.sort();
     else if(index == 1) menu_.sort_by_price();
     else if(menuTab->currentIndex() == 1) menu_.sort_by_gluten_free();
-    //else if(menuTab->currentIndex() == 2) menu_.sort_by_format();
+    else if(menuTab->currentIndex() == 2) menu_.sort_by_format();
     update_menu_tables();
 }
 

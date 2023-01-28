@@ -6,39 +6,6 @@
 #include <iostream>
 #include <random>
 
-/*
-template<class T>
-Vector<T>::iterator::iterator(): p_(nullptr), past_the_end_(false), pre_the_start_(false) {}
-
-template<class T>
-Vector<T>::iterator::iterator(T* p, bool pte, bool pts): p_(p), past_the_end_(pte), pre_the_start_(pts) {}
-
-template<class T>
-class Vector<T>::iterator& Vector<T>::iterator::operator++(){
-    if(p_) p_ = p_ + sizeof(T);
-    return *this;
-}
-
-template<class T>
-class Vector<T>::iterator Vector<T>::iterator::operator++(int){
-    iterator tmp(*this);
-
-}
-
-template<class T>
-Vector<T>::const_iterator::const_iterator(): p_(nullptr), past_the_end_(false), pre_the_start_(false) {}
-
-template<class T>
-Vector<T>::const_iterator::const_iterator(const T* p, bool pte, bool pts): p_(p), past_the_end_(pte), pre_the_start_(pts) {}
-
-template<class T>
-class Vector<T>::const_iterator& Vector<T>::const_iterator::operator++(){
-    if(p_) p_ = p_ + sizeof(T);
-    return *this;
-}
-*/
-
-
 template<class T>
 Vector<T>::Vector(): ptr_(new T[1]), size_(0), capacity_(1){}
 
@@ -66,29 +33,6 @@ Vector<T>& Vector<T>::operator=(const Vector& v){
     }
     return *this;
 }
-
-/*
-template<class T>
-iterator Vector<T>::begin(){
-    return iterator(ptr_);
-}
-
-template<class T>
-const_iterator Vector<T>::begin() const{
-    return const_iterator(ptr_);
-}
-
-template<class T>
-iterator Vector<T>::end(){
-    return iterator(ptr_[get_size()-1]);
-}
-
-template<class T>
-const_iterator Vector<T>::end() const{
-    return const_iterator(ptr_[get_size() - 1]);
-}
-
-*/
 
 template<class T>
 size_t Vector<T>::get_size() const{
@@ -228,58 +172,13 @@ void Vector<T>::swap(T& a, T& b){
 
 template<class T>
 template<class Predicate> void Vector<T>::sort_by(size_t first, size_t last, Predicate pred){
-
-    // /*
-    size_t i, j, min_idx;
-    // One by one move boundary of
-    // unsorted subarray
-    for (i = first; i < last-1; i++)
-    {
-
-        // Find the minimum element in
-        // unsorted array
+    size_t min_idx;
+    for (size_t i = first; i < last-1; i++){
         min_idx = i;
-        for (j = i+1; j < last; j++)
-        if (pred(ptr_[j], ptr_[min_idx]))
-            min_idx = j;
-
-        // Swap the found minimum element
-        // with the first element
-        if(min_idx!=i)
-            swap(ptr_[min_idx], ptr_[i]);
+        for(size_t j = i+1; j < last; j++)
+        if(pred(ptr_[j], ptr_[min_idx])) min_idx = j;
+        if(min_idx!=i) swap(ptr_[min_idx], ptr_[i]);
     }
-    // */
-
-     /*
-    if(first < last){
-        size_t q = partion(first, last, pred);
-        sort_by(first, q-1, pred);
-        sort_by(q + 1, last, pred);
-    }
-     */
 }
 
-/*
-template<class T>
-template<class Predicate> size_t Vector<T>::partion(size_t first, size_t last, Predicate pred){
-
-    std::random_device r;
-    std::uniform_int_distribution<int> distrib(first, last);
-    size_t randpiv = distrib(r);
-    swap(ptr_[last], ptr_[randpiv]);
-
-
-    T pivot = ptr_[last];
-    int i = first - 1;
-    for(size_t j = first; j <= last-1; j++){
-        if(pred(ptr_[j], pivot)){
-            i++;
-            swap(ptr_[j], ptr_[i]);
-        }
-    }
-    swap(ptr_[i+1], ptr_[last]);
-    return i+1;
-
-}
-*/
 #endif

@@ -7,7 +7,6 @@ enum target {shounen, seinen, shojo, josei, none};
 typedef enum target Target;
 
 class Manga: public Entertainment{
-    friend std::ostream& operator<<(std::ostream& os, const Manga& v);
 public:
     Manga(std::string name, std::string image, std::string description, unsigned int quantity,
           std::string author, unsigned int pages, unsigned int volume, Target target);
@@ -26,7 +25,5 @@ private:
     unsigned int volume_;
     Target target_;
 };
-
-std::ostream& operator<<(std::ostream& os, const Manga& v);
 
 #endif // MANGA_H

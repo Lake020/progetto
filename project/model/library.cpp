@@ -92,26 +92,6 @@ void Library::sort_by_target(){
     items_.sort_by(0, get_size(), pred);
 }
 
-Library Library::search_by_author(const std::string& author) const{
-    SearchAuthor pred(author);
-    return search(pred);
-}
-
-Library Library::search_by_pages(unsigned int pages) const{
-    SearchPages pred(pages);
-    return search(pred);
-}
-
-Library Library::search_by_volume(unsigned int volume) const{
-    SearchVolume pred(volume);
-    return search(pred);
-}
-
-Library Library::search_by_target(Target target) const{
-    SearchTarget pred(target);
-    return search(pred);
-}
-
 Library Library::only_dvd() const{
     Library tmp;
     for(size_t i = 0; i < get_size(); i++){
@@ -132,16 +112,6 @@ void Library::sort_by_length(){
     items_.sort_by(0, get_size(), pred);
 }
 
-Library Library::search_by_production(const std::string& production) const{
-    SearchProduction pred(production);
-    return search(pred);
-}
-
-Library Library::search_by_length(unsigned int length) const{
-    SearchLength pred(length);
-    return search(pred);
-}
-
 Library Library::only_series() const{
     Library tmp;
     for(size_t i = 0; i < get_size(); i++){
@@ -155,11 +125,6 @@ Library Library::only_series() const{
 void Library::sort_by_episodes(){
     CompareEpisodes pred;
     items_.sort_by(0, get_size(), pred);
-}
-
-Library Library::search_by_episodes(unsigned int episodes) const{
-    SearchEpisodes pred(episodes);
-    return search(pred);
 }
 
 Library Library::only_videogame() const{
@@ -180,21 +145,4 @@ void Library::sort_by_company(){
 void Library::sort_by_pegi(){
     ComparePegi pred;
     items_.sort_by(0, get_size(), pred);
-}
-
-Library Library::search_by_company(const std::string& company) const{
-    SearchCompany pred(company);
-    return search(pred);
-}
-
-Library Library::search_by_pegi(unsigned int pegi) const{
-    SearchPegi pred(pegi);
-    return search(pred);
-}
-
-std::ostream& operator<<(std::ostream& os, const Library& v){
-    for(size_t i = 0; i < v.get_size(); i++){
-        os << i+1 << " item is " << *v.items_[i] << std::endl;
-    }
-    return os;
 }

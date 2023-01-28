@@ -6,10 +6,7 @@
 #include "food.h"
 #include "drink.h"
 
-#include<iostream>
-
 class Menu{
-    friend std::ostream& operator<<(std::ostream& os, const Menu& v);
 public:
     Menu();
     ~Menu();
@@ -39,13 +36,10 @@ public:
     
     Menu only_drink() const;
     void sort_by_format();
-    Menu search_by_format(enum size format) const;
 
 private:
     Vector<CafeItem*> items_;
 };
-
-std::ostream& operator<<(std::ostream& os, const Menu& v);
 
 template<class Predicate> Menu Menu::search(Predicate pred) const{
     Menu results;
