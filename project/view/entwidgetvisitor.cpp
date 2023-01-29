@@ -110,6 +110,7 @@ void EntWidgetVisitor::visit(Series& series){
     QTextEdit* description = new QTextEdit(QString::fromStdString(series.get_description()));
     description->setReadOnly(true);
     description->setStyleSheet("background-color: white; font: normal;");
+    formLayout->addRow("Description: ", description);
     QLabel* quantity = new QLabel(QString::number(series.get_quantity()));
     quantity->setStyleSheet("font: normal");
     formLayout->addRow("Quantity: ", quantity);

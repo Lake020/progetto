@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     library_search_mode_(-1), libraryAddWidget(new LibraryAddWidget)
     {
     setWindowTitle("QtCafe");
-
+    setWindowIcon(QIcon(":/assests/app_icon.png"));
     QVBoxLayout* mainLayout = new QVBoxLayout;
 
     QMenuBar* bar = new QMenuBar;
@@ -32,9 +32,6 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     file->addAction(closeFile);
     file->addAction(exit);
 
-    QMenu* help = new QMenu("?");
-    bar->addMenu(help);
-    help->addAction(new QAction("Guida", help));
     mainLayout->addWidget(bar);
 
     QTabWidget* mainTab = new QTabWidget;
@@ -60,12 +57,15 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     menuButtonBox->setStyleSheet("font: bold");
     QHBoxLayout* menuButtonLayout = new QHBoxLayout;
     QPushButton* addMenuButton = new QPushButton("Add");
+    addMenuButton->setIcon(QIcon(":/assests/add_icon.png"));
     addMenuButton->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
                                   QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     QPushButton* editMenuButton = new QPushButton("Edit");
+    editMenuButton->setIcon(QIcon(":/assests/edit_icon.png"));
     editMenuButton->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
                                    QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     QPushButton* deleteMenuButton = new QPushButton("Delete");
+    deleteMenuButton->setIcon(QIcon(":/assests/delete_icon.png"));
     deleteMenuButton->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
                                      QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     menuButtonLayout->addWidget(addMenuButton);
@@ -130,7 +130,7 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
 
     fill_menuTable(menuTable, menu_);
 
-    menuTab->addTab(menuTable, "All");
+    menuTab->addTab(menuTable, QIcon(":/assests/cafe_icon.png"), "All");
 
     foodTable = new QTableWidget;
     QStringList headerFoodTable;
@@ -154,7 +154,7 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     foodTable->setFocusPolicy(Qt::NoFocus);
 
     fill_foodTable(foodTable, menu_);
-    menuTab->addTab(foodTable, "Food");
+    menuTab->addTab(foodTable, QIcon(":/assests/food_icon.png"),"Food");
 
     drinkTable = new QTableWidget;
     QStringList headerDrinkTable;
@@ -178,7 +178,7 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
 
     fill_drinkTable(drinkTable, menu_);
 
-    menuTab->addTab(drinkTable, "Drink");
+    menuTab->addTab(drinkTable, QIcon(":/assests/drink_icon.png"), "Drink");
 
 
     mainTab->addTab(menuWidget, "Menu");
@@ -192,12 +192,15 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     libraryButtonBox->setStyleSheet("font: bold");
     QHBoxLayout* libraryButtonLayout = new QHBoxLayout;
     QPushButton* addLibraryButton = new QPushButton("Add");
+    addLibraryButton->setIcon(QIcon(":/assests/add_icon.png"));
     addLibraryButton->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
                                      QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     QPushButton* editLibraryButton = new QPushButton("Edit");
+    editLibraryButton->setIcon(QIcon(":/assests/edit_icon.png"));
     editLibraryButton->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
                                       QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     QPushButton* deleteLibraryButton = new QPushButton("Delete");
+    deleteLibraryButton->setIcon(QIcon(":/assests/delete_icon.png"));
     deleteLibraryButton->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
                                         QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     libraryButtonLayout->addWidget(addLibraryButton);
@@ -264,7 +267,7 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     libraryTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
     libraryTable->setFocusPolicy(Qt::NoFocus);
     fill_libraryTable(library_);
-    libraryTab->addTab(libraryTable, "All");
+    libraryTab->addTab(libraryTable, QIcon(":/assests/library_icon.png") ,"All");
 
     mangaTable = new QTableWidget;
     QStringList headerMangaTable;
@@ -288,7 +291,7 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     mangaTable->setFocusPolicy(Qt::NoFocus);
 
     fill_mangaTable(library_);
-    libraryTab->addTab(mangaTable, "Manga");
+    libraryTab->addTab(mangaTable, QIcon(":/assests/comic_icon.png"), "Manga");
 
     dvdTable = new QTableWidget;
     QStringList headerDvdTable;
@@ -312,7 +315,7 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     dvdTable->setFocusPolicy(Qt::NoFocus);
 
     fill_dvdTable(library_);
-    libraryTab->addTab(dvdTable, "Dvd");
+    libraryTab->addTab(dvdTable, QIcon(":/assests/dvd_icon.png"), "Dvd");
 
     videogameTable = new QTableWidget;
     QStringList headerVideogameTable;
@@ -336,7 +339,7 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     videogameTable->setFocusPolicy(Qt::NoFocus);
 
     fill_videogameTable(library_);
-    libraryTab->addTab(videogameTable, "Videogame");
+    libraryTab->addTab(videogameTable, QIcon(":/assests/joystick_icon.png") ,"Videogame");
 
     mainTab->addTab(libraryWidget, "Library");
     libraryWidgetLayout->addWidget(libraryTab);

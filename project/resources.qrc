@@ -27,5 +27,18 @@
         <file>assests/parfait_frutta.jpg</file>
         <file>assests/ramen.jpg</file>
         <file>assests/tea.jpg</file>
+        <file>assests/add_icon.png</file>
+        <file>assests/delete_icon.png</file>
+        <file>assests/edit_icon.png</file>
+        <file>assests/cafe_icon.png</file>
+        <file>assests/comic_icon.png</file>
+        <file>assests/drink_icon.png</file>
+        <file>assests/dvd_icon.png</file>
+        <file>assests/food_icon.png</file>
+        <file>assests/joystick_icon.png</file>
+        <file>assests/app_icon.png</file>
+        <file>assests/library_icon.png</file>
+        <file>assests/game_of_thrones1.jpg</file>
+        <file>assests/stranger_things1.jpg</file>
     </qresource>
 </RCC>
