@@ -2,6 +2,8 @@
 
 LibraryAddWidget::LibraryAddWidget(QWidget *parent): QWidget{parent}{
     setWindowTitle("Add");
+    setFixedSize(QSize(350, 450));
+    setStyleSheet("background-color: rgb(202, 240, 248); font: bold;");
     layout = new QVBoxLayout;
     formLayout = new QFormLayout;
     type = new QComboBox;
@@ -9,27 +11,38 @@ LibraryAddWidget::LibraryAddWidget(QWidget *parent): QWidget{parent}{
     type->addItem("Dvd");
     type->addItem("Series");
     type->addItem("Videogame");
+    type->setStyleSheet("background-color: white; font: normal");
     formLayout->addRow(tr("Type: "), type);
     name = new QLineEdit;
+    name->setStyleSheet("background-color: white; font: normal");
     name->setMaxLength(100);
     formLayout->addRow(tr("&Name: "), name);
     browseImage = new QPushButton("Browse...");
+    browseImage->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
+                                QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     imageLayout = new QHBoxLayout;
     image = new QLineEdit;
     image->setMaxLength(250);
+    image->setStyleSheet("background-color: white; font: normal");
     imageLayout->addWidget(image);
     imageLayout->addWidget(browseImage);
     formLayout->addRow(tr("Image: "), imageLayout);
     description = new QTextEdit;
+    description->setStyleSheet("background-color: white; font: normal");
     formLayout->addRow(tr("Desription: "), description);
     quantity = new QSpinBox;
     quantity->setAlignment(Qt::AlignRight);
     quantity->setMaximum(50);
+    quantity->setStyleSheet("background-color: white; font: normal");
     formLayout->addRow(tr("Quantity: "), quantity);
     mangaExtraInfo();
     buttonLayout = new QHBoxLayout;
     addButton = new QPushButton("Add");
+    addButton->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
+                              QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     cancelButton = new QPushButton("Cancel");
+    cancelButton->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
+                                 QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     buttonLayout->addWidget(addButton);
     buttonLayout->addWidget(cancelButton);
     layout->addLayout(formLayout);
@@ -50,12 +63,17 @@ void LibraryAddWidget::mangaExtraInfo(){
     while(formLayout->rowCount() > 5) formLayout->removeRow(formLayout->rowCount() - 1);
     author = new QLineEdit;
     author->setMaxLength(100);
+    author->setStyleSheet("background-color: white; font: normal");
     formLayout->addRow(tr("&Author: "), author);
     volume = new QSpinBox;
     volume->setMaximum(200);
+    volume->setAlignment(Qt::AlignRight);
+    volume->setStyleSheet("background-color: white; font: normal");
     formLayout->addRow(tr("Volume: "), volume);
     pages = new QSpinBox;
     pages->setMaximum(1000);
+    pages->setAlignment(Qt::AlignRight);
+    pages->setStyleSheet("background-color: white; font: normal");
     formLayout->addRow(tr("Pages: "), pages);
     target = new QComboBox;
     target->addItem("Shounen");
@@ -63,6 +81,7 @@ void LibraryAddWidget::mangaExtraInfo(){
     target->addItem("Shojo");
     target->addItem("Josei");
     target->addItem("None");
+    target->setStyleSheet("background-color: white; font: normal");
     formLayout->addRow(tr("Target: "), target);
 }
 
@@ -70,9 +89,12 @@ void LibraryAddWidget::dvdExtraInfo(){
     while(formLayout->rowCount() > 5)formLayout->removeRow(formLayout->rowCount() - 1);
     production = new QLineEdit;
     production->setMaxLength(100);
+    production->setStyleSheet("background-color: white; font: normal");
     formLayout->addRow(tr("&Production: "), production);
     length = new QSpinBox;
     length->setMaximum(210);
+    length->setAlignment(Qt::AlignRight);
+    length->setStyleSheet("background-color: white; font: normal");
     formLayout->addRow(tr("Length: "), length);
 }
 
@@ -80,6 +102,8 @@ void LibraryAddWidget::seriesExtraInfo(){
     dvdExtraInfo();
     episodes = new QSpinBox;
     episodes->setMaximum(2000);
+    episodes->setAlignment(Qt::AlignRight);
+    episodes->setStyleSheet("background-color: white; font: normal");
     formLayout->addRow(tr("Episodes"), episodes);
 }
 
@@ -87,9 +111,12 @@ void LibraryAddWidget::videogameExtraInfo(){
     while(formLayout->rowCount() > 5) formLayout->removeRow(formLayout->rowCount() - 1);
     company = new QLineEdit;
     company->setMaxLength(100);
+    company->setStyleSheet("background-color: white; font: normal");
     formLayout->addRow(tr("&Company: "), company);
     pegi = new QSpinBox;
     pegi->setRange(3, 18);
+    pegi->setAlignment(Qt::AlignRight);
+    pegi->setStyleSheet("background-color: white; font: normal");
     formLayout->addRow(tr("Pegi: "), pegi);
 }
 

@@ -22,10 +22,13 @@ void CafeWidgetVisitor::visit(Food& food){
     layout->addWidget(image);
     QFormLayout* formLayout = new QFormLayout;
     QLabel* name = new QLabel(QString::fromStdString(food.get_name()));
+    name->setStyleSheet("font: normal");
     formLayout->addRow("Name: ", name);
     QLabel* price = new QLabel(QString::number(food.get_price()));
+    price->setStyleSheet("font: normal");
     formLayout->addRow("Price: ", price);
     QLabel* gluten = new QLabel(food.is_gluten_free()? "Yes" : "No");
+    gluten->setStyleSheet("font: normal");
     formLayout->addRow("Gluten free: ", gluten);
     layout->addLayout(formLayout);
     widget->setLayout(layout);
@@ -45,8 +48,10 @@ void CafeWidgetVisitor::visit(Drink& drink){
     layout->addWidget(image);
     QFormLayout* formLayout = new QFormLayout;
     QLabel* name = new QLabel(QString::fromStdString(drink.get_name()));
+    name->setStyleSheet("font: normal");
     formLayout->addRow("Name: ", name);
     QLabel* price = new QLabel(QString::number(drink.get_price()));
+    price->setStyleSheet("font: normal");
     formLayout->addRow("Price: ", price);
     QLabel* format;
     switch(drink.get_format()){
@@ -55,6 +60,7 @@ void CafeWidgetVisitor::visit(Drink& drink){
     case medium: format = new QLabel("Medium"); break;
     case big: format = new QLabel("Big"); break;
     }
+    format->setStyleSheet("font: normal");
     formLayout->addRow("Format: ", format);
     layout->addLayout(formLayout);
     widget->setLayout(layout);

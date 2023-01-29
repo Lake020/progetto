@@ -3,19 +3,25 @@
 CafeItemAddWidget::CafeItemAddWidget(QWidget *parent): QWidget{parent}{
     setWindowTitle("Add");
     setFixedSize(QSize(400,240));
+    setStyleSheet("background-color: rgb(202, 240, 248); font: bold;");
     layout = new QVBoxLayout;
     formLayout = new QFormLayout;
     type = new QComboBox;
     type->addItem("Food");
     type->addItem("Drink");
+    type->setStyleSheet("background-color: white; font: normal");
     formLayout->addRow(tr("Type: "), type);
     name = new QLineEdit;
     name->setMaxLength(100);
+    name->setStyleSheet("background-color: white; font: normal");
     formLayout->addRow(tr("&Name: "), name);
     browseImage = new QPushButton("Browse...");
+    browseImage->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
+                                QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     imageLayout = new QHBoxLayout;
     image = new QLineEdit;
     image->setMaxLength(250);
+    image->setStyleSheet("background-color: white; font: normal");
     imageLayout->addWidget(image);
     imageLayout->addWidget(browseImage);
     formLayout->addRow(tr("Image: "), imageLayout);
@@ -23,11 +29,16 @@ CafeItemAddWidget::CafeItemAddWidget(QWidget *parent): QWidget{parent}{
     price->setAlignment(Qt::AlignRight);
     price->setMaximum(100);
     price->setStepType(QAbstractSpinBox::AdaptiveDecimalStepType);
+    price->setStyleSheet("background-color: white; font: normal");
     formLayout->addRow(tr("Price: "), price);
     FoodExtraInfo();
     buttonLayout = new QHBoxLayout;
     addButton = new QPushButton("Add");
+    addButton->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
+                                QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     cancelButton = new QPushButton("Cancel");
+    cancelButton->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
+                                        QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     buttonLayout->addWidget(addButton);
     buttonLayout->addWidget(cancelButton);
     layout->addLayout(formLayout);
@@ -48,6 +59,7 @@ void CafeItemAddWidget::FoodExtraInfo(){
     extra->addItem("Yes");
     extra->addItem("No");
     if(formLayout->rowCount() > 4) formLayout->removeRow(4);
+    extra->setStyleSheet("background-color: white; font: normal");
     formLayout->addRow(tr("Gluten Free: "), extra);
 }
 
@@ -58,6 +70,7 @@ void CafeItemAddWidget::DrinkExtraInfo(){
     extra->addItem("Medium");
     extra->addItem("Big");
     if(formLayout->rowCount() > 4) formLayout->removeRow(4);
+    extra->setStyleSheet("background-color: white; font: normal");
     formLayout->addRow(tr("Format : "), extra);
 }
 

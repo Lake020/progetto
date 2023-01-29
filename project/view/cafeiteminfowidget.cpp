@@ -8,5 +8,6 @@ CafeItemInfoWidget::CafeItemInfoWidget(CafeItem* item, QWidget *parent): QWidget
     item_->accept(visitor);
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(visitor.get_widget());
+    setStyleSheet("background-color: rgb(202, 240, 248); font: bold;");
     setLayout(layout);
 }

@@ -8,5 +8,6 @@ LibraryInfoWidget::LibraryInfoWidget(Entertainment* item, QWidget *parent): QWid
     item->accept(visitor);
     QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(visitor.get_widget());
+    setStyleSheet("background-color: rgb(202, 240, 248); font: bold;");
     setLayout(layout);
 }

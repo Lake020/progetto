@@ -39,7 +39,17 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
 
     QTabWidget* mainTab = new QTabWidget;
 
-    mainTab->setStyleSheet("background-color: rgb(202, 240, 248)");
+    mainTab->setStyleSheet("QTabWidget QWidget {background-color: rgb(202, 240, 248);}\
+                           QTabBar::tab{background-color: rgb(0, 119, 182); \
+                                        border: 1px solid  rgb(2, 62, 138); \
+                                        border-bottom-color: rgb(2, 62, 138); \
+                                        border-top-left-radius: 4px; \
+                                        border-top-right-radius: 4px; \
+                                        min-width: 7ex;\
+                                        padding: 2px;\
+                                        color: white; font-weight: 600}\
+                           QTabBar::tab::selected, QTabBar::tab::hover{background-color: rgb(2, 62, 138)}\
+                           QTabBar::tab::selected{margin-top: 2px;};");
 
     QWidget* menuWidget = new QWidget;
     QVBoxLayout* menuWidgetLayout = new QVBoxLayout;
@@ -47,10 +57,17 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
 
     QHBoxLayout* menuControlsLayout = new QHBoxLayout;
     QGroupBox* menuButtonBox = new QGroupBox("Edit");
+    menuButtonBox->setStyleSheet("font: bold");
     QHBoxLayout* menuButtonLayout = new QHBoxLayout;
     QPushButton* addMenuButton = new QPushButton("Add");
+    addMenuButton->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
+                                  QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     QPushButton* editMenuButton = new QPushButton("Edit");
+    editMenuButton->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
+                                   QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     QPushButton* deleteMenuButton = new QPushButton("Delete");
+    deleteMenuButton->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
+                                     QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     menuButtonLayout->addWidget(addMenuButton);
     menuButtonLayout->addWidget(editMenuButton);
     menuButtonLayout->addWidget(deleteMenuButton);
@@ -58,11 +75,15 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     menuControlsLayout->addWidget(menuButtonBox);
 
     QGroupBox* menuSearchBox = new QGroupBox("Search");
+    menuSearchBox->setStyleSheet("font: bold");
     QHBoxLayout* menuSearchLayout = new QHBoxLayout;
     menuSearch = new QLineEdit;
+    menuSearch->setStyleSheet("background-color: white; font-weight: normal");
     QGridLayout* menuSearchOptionLayout = new QGridLayout;
     QCheckBox* menuSearchName = new QCheckBox("Name");
+    menuSearchName->setStyleSheet("font-weight: normal");
     QCheckBox* menuSearchPrice = new QCheckBox("Price");
+    menuSearchPrice->setStyleSheet("font-weight: normal");
     QButtonGroup* menuSearchOptionGroup = new QButtonGroup;
     menuSearchOptionGroup->addButton(menuSearchName);
     menuSearchOptionGroup->addButton(menuSearchPrice);
@@ -76,16 +97,30 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     menuWidgetLayout->addLayout(menuControlsLayout);
 
     menuTab = new QTabWidget;
+    menuTab->setStyleSheet("QTabBar::tab{background-color: rgb(0, 119, 182); \
+                                            border: 1px solid  rgb(2, 62, 138); \
+                                            border-bottom-color: rgb(2, 62, 138); \
+                                            border-top-left-radius: 4px; \
+                                            border-top-right-radius: 4px; \
+                                            min-width: 7ex;\
+                                            padding: 2px;\
+                                            color: white; font-weight: 600}\
+                               QTabBar::tab::selected, QTabBar::tab::hover{background-color: rgb(2, 62, 138)}\
+                               QTabBar::tab::selected{margin-top: 2px;};");
     menuTable = new QTableWidget;
     QStringList headerMenuTable;
     headerMenuTable << "Name" << "Price";
     menuTable->setColumnCount(2);
     menuTable->setHorizontalHeaderLabels(headerMenuTable);
-    menuTable->horizontalHeader()->setStyleSheet("font-weight: bold");
+    menuTable->horizontalHeader()->setStyleSheet("QHeaderView::section::hover{background-color: rgb(0, 128, 170)} \
+                                                  QHeaderView::section{background-color: rgb(0, 150, 199); color: white; font: bold}");
     menuTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     menuTable->verticalHeader()->hide();
     menuTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     menuTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    menuTable->setStyleSheet("background-color: rgb(133, 228, 255); \
+                              alternate-background-color: rgb(214, 246, 255); \
+                              selection-background-color: rgb(253, 230, 53)");
     menuTable->setAlternatingRowColors(true);
     menuTable->setSortingEnabled(false);
     menuTable->resizeRowsToContents();
@@ -102,11 +137,15 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     headerFoodTable << "Name" << "Price" << "Gluten free";
     foodTable->setColumnCount(3);
     foodTable->setHorizontalHeaderLabels(headerFoodTable);
-    foodTable->horizontalHeader()->setStyleSheet("font-weight: bold");
+    foodTable->horizontalHeader()->setStyleSheet("QHeaderView::section::hover{background-color: rgb(0, 128, 170)} \
+                                                  QHeaderView::section{background-color: rgb(0, 150, 199); color: white; font: bold}");
     foodTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     foodTable->verticalHeader()->hide();
     foodTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     foodTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    foodTable->setStyleSheet("background-color: rgb(133, 228, 255); \
+                              alternate-background-color: rgb(214, 246, 255); \
+                              selection-background-color: rgb(253, 230, 53)");
     foodTable->setAlternatingRowColors(true);
     foodTable->setSortingEnabled(false);
     foodTable->resizeRowsToContents();
@@ -122,11 +161,14 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     headerDrinkTable << "Name" << "Price" << "Format";
     drinkTable->setColumnCount(3);
     drinkTable->setHorizontalHeaderLabels(headerDrinkTable);
-    drinkTable->horizontalHeader()->setStyleSheet("font-weight: bold");
+    drinkTable->horizontalHeader()->setStyleSheet("QHeaderView::section::hover{background-color: rgb(0, 128, 170)} \
+                                                   QHeaderView::section{background-color: rgb(0, 150, 199); color: white; font: bold}");
     drinkTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     drinkTable->verticalHeader()->hide();
     drinkTable->setSelectionBehavior(QAbstractItemView::SelectRows);
-    drinkTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    drinkTable->setStyleSheet("background-color: rgb(133, 228, 255); \
+                               alternate-background-color: rgb(214, 246, 255); \
+                               selection-background-color: rgb(253, 230, 53)");
     drinkTable->setAlternatingRowColors(true);
     drinkTable->setSortingEnabled(false);
     drinkTable->resizeRowsToContents();
@@ -150,17 +192,14 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     libraryButtonBox->setStyleSheet("font: bold");
     QHBoxLayout* libraryButtonLayout = new QHBoxLayout;
     QPushButton* addLibraryButton = new QPushButton("Add");
-    addLibraryButton->setStyleSheet("QPushButton::hover{ background-color: rgb(144, 224, 239)}\
-                                     QPushButton{background-color: rgb(173, 232, 244); \
-                                                 font-weight: normal}");
+    addLibraryButton->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
+                                     QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     QPushButton* editLibraryButton = new QPushButton("Edit");
-    editLibraryButton->setStyleSheet("QPushButton::hover{ background-color: rgb(144, 224, 239)}\
-                                     QPushButton{background-color: rgb(173, 232, 244);\
-                                                 font-weight: normal}");
+    editLibraryButton->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
+                                      QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     QPushButton* deleteLibraryButton = new QPushButton("Delete");
-    deleteLibraryButton->setStyleSheet("QPushButton::hover{ background-color: rgb(144, 224, 239)}\
-                                       QPushButton{background-color: rgb(173, 232, 244);\
-                                                   font-weight: normal}");
+    deleteLibraryButton->setStyleSheet("QPushButton::hover{ background-color: rgb(96, 212, 232)}\
+                                        QPushButton{background-color: rgb(144, 224, 239); font-weight: normal}");
     libraryButtonLayout->addWidget(addLibraryButton);
     libraryButtonLayout->addWidget(editLibraryButton);
     libraryButtonLayout->addWidget(deleteLibraryButton);
@@ -209,13 +248,15 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     headerLibraryTable << "Name" << "Quantity" << "Description";
     libraryTable->setColumnCount(3);
     libraryTable->setHorizontalHeaderLabels(headerLibraryTable);
-    libraryTable->horizontalHeader()->setStyleSheet("QHeaderView::section{background-color: rgb(0, 150, 199);\
-                                                                          color: white; font: bold}");
+    libraryTable->horizontalHeader()->setStyleSheet("QHeaderView::section::hover{background-color: rgb(0, 128, 170)} \
+                                                     QHeaderView::section{background-color: rgb(0, 150, 199); color: white; font: bold}");
     libraryTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     libraryTable->verticalHeader()->hide();
     libraryTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     libraryTable->setSelectionMode(QAbstractItemView::SingleSelection);
-    libraryTable->setStyleSheet("background-color: rgb(133, 228, 255); alternate-background-color: rgb(214, 246, 255); selection-background-color: rgb(253, 230, 53)");
+    libraryTable->setStyleSheet("background-color: rgb(133, 228, 255); \
+                                 alternate-background-color: rgb(214, 246, 255); \
+                                 selection-background-color: rgb(253, 230, 53)");
     libraryTable->setAlternatingRowColors(true);
     libraryTable->setSortingEnabled(false);
     libraryTable->resizeRowsToContents();
@@ -230,11 +271,15 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     headerMangaTable << "Name" << "Quantity" << "Author" << "Volume" << "Pages" << "Target";
     mangaTable->setColumnCount(6);
     mangaTable->setHorizontalHeaderLabels(headerMangaTable);
-    mangaTable->horizontalHeader()->setStyleSheet("font-weight: bold");
+    mangaTable->horizontalHeader()->setStyleSheet("QHeaderView::section::hover{background-color: rgb(0, 128, 170)} \
+                                                   QHeaderView::section{background-color: rgb(0, 150, 199); color: white; font: bold}");
     mangaTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     mangaTable->verticalHeader()->hide();
     mangaTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     mangaTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    mangaTable->setStyleSheet("background-color: rgb(133, 228, 255); \
+                               alternate-background-color: rgb(214, 246, 255); \
+                               selection-background-color: rgb(253, 230, 53)");
     mangaTable->setAlternatingRowColors(true);
     mangaTable->setSortingEnabled(false);
     mangaTable->resizeRowsToContents();
@@ -250,11 +295,15 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     headerDvdTable << "Name" << "Quantity" << "Production" << "Length";
     dvdTable->setColumnCount(4);
     dvdTable->setHorizontalHeaderLabels(headerDvdTable);
-    dvdTable->horizontalHeader()->setStyleSheet("font-weight: bold");
+    dvdTable->horizontalHeader()->setStyleSheet("QHeaderView::section::hover{background-color: rgb(0, 128, 170)} \
+                                                 QHeaderView::section{background-color: rgb(0, 150, 199); color: white; font: bold}");
     dvdTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     dvdTable->verticalHeader()->hide();
     dvdTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     dvdTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    dvdTable->setStyleSheet("background-color: rgb(133, 228, 255); \
+                             alternate-background-color: rgb(214, 246, 255); \
+                             selection-background-color: rgb(253, 230, 53)");
     dvdTable->setAlternatingRowColors(true);
     dvdTable->setSortingEnabled(false);
     dvdTable->resizeRowsToContents();
@@ -270,11 +319,15 @@ MainWindow::MainWindow(QWidget *parent):QWidget(parent),
     headerVideogameTable << "Name" << "Quantity" << "Company" << "Pegi";
     videogameTable->setColumnCount(4);
     videogameTable->setHorizontalHeaderLabels(headerVideogameTable);
-    videogameTable->horizontalHeader()->setStyleSheet("font-weight: bold");
+    videogameTable->horizontalHeader()->setStyleSheet("QHeaderView::section::hover{background-color: rgb(0, 128, 170)} \
+                                                       QHeaderView::section{background-color: rgb(0, 150, 199); color: white; font: bold}");
     videogameTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     videogameTable->verticalHeader()->hide();
     videogameTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     videogameTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    videogameTable->setStyleSheet("background-color: rgb(133, 228, 255); \
+                                   alternate-background-color: rgb(214, 246, 255); \
+                                   selection-background-color: rgb(253, 230, 53)");
     videogameTable->setAlternatingRowColors(true);
     videogameTable->setSortingEnabled(false);
     videogameTable->resizeRowsToContents();
