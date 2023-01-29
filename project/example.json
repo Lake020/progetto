@@ -161,18 +161,81 @@
     ],
     "Menu": [
         {
-            "gluten_free": false,
-            "image": "",
-            "name": "",
-            "price": 1,
+            "format": 0,
+            "image": ":/assests/cappuccino.jpg",
+            "name": "Cappuccino",
+            "price": 1.7,
+            "type": "Drink"
+        },
+        {
+            "format": 0,
+            "image": ":/assests/cappuccino_personalizzato.jpg",
+            "name": "Cappuccino personalizzato",
+            "price": 2.2,
+            "type": "Drink"
+        },
+        {
+            "format": 3,
+            "image": ":/assests/coca_cola.jpg",
+            "name": "Coca Cola",
+            "price": 4,
+            "type": "Drink"
+        },
+        {
+            "format": 2,
+            "image": ":/assests/coca_cola.jpg",
+            "name": "Coca Cola",
+            "price": 3.5,
+            "type": "Drink"
+        },
+        {
+            "gluten_free": true,
+            "image": ":/assests/curry.jpg",
+            "name": "Curry",
+            "price": 8.5,
             "type": "Food"
         },
         {
             "format": 0,
-            "image": "",
-            "name": "",
-            "price": 1,
+            "image": ":/assests/espresso.jpg",
+            "name": "Espresso",
+            "price": 1.5,
             "type": "Drink"
+        },
+        {
+            "format": 0,
+            "image": ":/assests/matcha.jpg",
+            "name": "Matcha",
+            "price": 4.6,
+            "type": "Drink"
+        },
+        {
+            "gluten_free": true,
+            "image": ":/assests/omurice.jpg",
+            "name": "Omurice",
+            "price": 9,
+            "type": "Food"
+        },
+        {
+            "gluten_free": true,
+            "image": ":/assests/parfait_frutta.jpg",
+            "name": "Parfait alla frutta",
+            "price": 7.7,
+            "type": "Food"
+        },
+        {
+            "gluten_free": true,
+            "image": ":/assests/ramen.jpg",
+            "name": "Ramen",
+            "price": 12,
+            "type": "Food"
+        },
+        {
+            "gluten_free": true,
+            "image": ":/assests/tea.jpg",
+            "name": "Tè",
+            "price": 3.9,
+            "type": "Food"
         }
     ]
 }

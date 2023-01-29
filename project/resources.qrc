@@ -17,5 +17,15 @@
         <file>assests/porco_rosso.jpg</file>
         <file>assests/undertale.jpg</file>
         <file>assests/your_name.jpg</file>
+        <file>assests/cappuccino.jpg</file>
+        <file>assests/cappuccino_personalizzato.jpg</file>
+        <file>assests/coca_cola.jpg</file>
+        <file>assests/curry.jpg</file>
+        <file>assests/espresso.jpg</file>
+        <file>assests/matcha.jpg</file>
+        <file>assests/omurice.jpg</file>
+        <file>assests/parfait_frutta.jpg</file>
+        <file>assests/ramen.jpg</file>
+        <file>assests/tea.jpg</file>
     </qresource>
 </RCC>
