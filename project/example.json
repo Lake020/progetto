@@ -251,11 +251,11 @@
             "type": "Food"
         },
         {
-            "gluten_free": true,
+            "format": 0,
             "image": ":/assests/tea.jpg",
             "name": "Tè",
-            "price": 3.9,
-            "type": "Food"
+            "price": 3,
+            "type": "Drink"
         }
     ]
 }
